@@ -7,20 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GestionDePestamos
+namespace GestionDePestamos.Empleados
 {
 
 
-    public partial class Inicio
+    public partial class Empleados
     {
-
-        /// <summary>
-        /// Control form1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
     }
 }

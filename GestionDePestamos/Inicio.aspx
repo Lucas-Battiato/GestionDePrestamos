@@ -10,6 +10,10 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <h1>Esta es la pagina Inicial</h1>
+            
+            <a href="Cliente/LoginCliente.aspx">Ingresar como Usuario</a>
+            <a href="Empleados/LoginEmpleado.aspx">Ingresar como Empleado</a>
         </div>
     </form>
 </body>

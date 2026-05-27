@@ -67,11 +67,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cliente\Clientes.aspx" />
+    <Content Include="Cliente\LoginCliente.aspx" />
+    <Content Include="Empleados\Empleados.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Empleados\LoginEmpleado.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cliente\Clientes.aspx.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Clientes.aspx.designer.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\LoginCliente.aspx.cs">
+      <DependentUpon>LoginCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\LoginCliente.aspx.designer.cs">
+      <DependentUpon>LoginCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Empleados.aspx.cs">
+      <DependentUpon>Empleados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Empleados.aspx.designer.cs">
+      <DependentUpon>Empleados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -82,9 +107,32 @@
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleados\LoginEmpleado.aspx.cs">
+      <DependentUpon>LoginEmpleado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\LoginEmpleado.aspx.designer.cs">
+      <DependentUpon>LoginEmpleado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\Cliente.Master.cs">
+      <DependentUpon>Cliente.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\Cliente.Master.designer.cs">
+      <DependentUpon>Cliente.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\Empleado.Master.cs">
+      <DependentUpon>Empleado.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\Empleado.Master.designer.cs">
+      <DependentUpon>Empleado.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MasterPages\Cliente.Master" />
+    <Content Include="MasterPages\Empleado.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -94,16 +142,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\" />
     <Folder Include="App_Data\" />
     <Folder Include="Clases\" />
-    <Folder Include="Cliente\" />
     <Folder Include="Content\" />
     <Folder Include="Datos\" />
-    <Folder Include="MasterPages\" />
     <Folder Include="Models\" />
     <Folder Include="Negocio\" />
-    <Folder Include="Operador\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>

@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GestionDePestamos
+namespace GestionDePestamos.Operador
 {
 
 
-    public partial class Inicio
+    public partial class LoginEmpleado
     {
 
         /// <summary>
