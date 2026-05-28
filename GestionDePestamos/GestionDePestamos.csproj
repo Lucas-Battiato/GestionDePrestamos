@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Cliente\Clientes.aspx" />
     <Content Include="Cliente\LoginCliente.aspx" />
+    <Content Include="Content\Inicio.css" />
     <Content Include="Empleados\Empleados.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Inicio.aspx" />
@@ -144,7 +145,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Clases\" />
-    <Folder Include="Content\" />
     <Folder Include="Datos\" />
     <Folder Include="Models\" />
     <Folder Include="Negocio\" />
