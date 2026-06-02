@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Entidades/Entidades.csproj" Id="58b12449-a411-40c9-8a79-f58e5b012bd2" />
   <Project Path="GestionDePestamos/GestionDePestamos.csproj" Id="ebb02ae4-deaa-412b-9be2-ac17e7d09a73" />
+  <Project Path="Negocio/Negocio.csproj" Id="6e0738ff-29d3-4a8c-878a-f71330eb6599" />
 </Solution>

@@ -146,9 +146,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Clases\" />
     <Folder Include="Datos\" />
-    <Folder Include="Models\" />
-    <Folder Include="Negocio\" />
-    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{58b12449-a411-40c9-8a79-f58e5b012bd2}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Negocio\Negocio.csproj">
+      <Project>{6e0738ff-29d3-4a8c-878a-f71330eb6599}</Project>
+      <Name>Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

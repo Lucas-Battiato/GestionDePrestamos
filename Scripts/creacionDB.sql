@@ -1,20 +1,19 @@
 USE master
 GO
 
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'ProgramacionIII_TPC')
-    DROP DATABASE ProgramacionIII_TPC
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'SistemaPrestamosPersonales')
+    DROP DATABASE SistemaPrestamosPersonales
 GO
 
-CREATE DATABASE ProgramacionIII_TPC
+CREATE DATABASE SistemaPrestamosPersonales
 GO
 
-USE ProgramacionIII_TPC
+USE SistemaPrestamosPersonales
 GO
-
 
 CREATE TABLE [Rol] (
 	[idRol] INTEGER NOT NULL IDENTITY UNIQUE,
-	[Descripcion] VARCHAR(20) NOT NULL UNIQUE,
+	[descripcion] VARCHAR(20) NOT NULL UNIQUE,
 	PRIMARY KEY([idRol])
 );
 GO
@@ -22,7 +21,7 @@ GO
 CREATE TABLE [Prestamo] (
 	[idPrestamo] INTEGER NOT NULL IDENTITY UNIQUE,
 	[idProducto] INTEGER NOT NULL,
-	[idUsuarioCliente] INTEGER NOT NULL,
+	[idCliente] INTEGER NOT NULL,
 	[idUsuarioAprobador] INTEGER,
 	[monto] DECIMAL(12,2) NOT NULL,
 	[interesTotal] DECIMAL(12,2) NOT NULL,
@@ -37,7 +36,7 @@ GO
 
 CREATE TABLE [EstadoPrestamo] (
 	[idEstadoPrestamo] INTEGER NOT NULL IDENTITY UNIQUE,
-	[Descripcion] VARCHAR(20) NOT NULL,
+	[descripcion] VARCHAR(20) NOT NULL,
 	PRIMARY KEY([idEstadoPrestamo])
 );
 GO
@@ -56,15 +55,15 @@ GO
 
 CREATE TABLE [EstadoCuota] (
 	[idEstadoCuota] INTEGER NOT NULL IDENTITY UNIQUE,
-	[Descripcion] VARCHAR(20) NOT NULL,
+	[descripcion] VARCHAR(20) NOT NULL,
 	PRIMARY KEY([idEstadoCuota])
 );
 GO
 
 CREATE TABLE [Cliente] (
 	[idCliente] INTEGER NOT NULL IDENTITY UNIQUE,
-	[username] VARCHAR(20) NOT NULL,
-	[password] VARCHAR(25) NOT NULL,
+	[username] VARCHAR(25) NOT NULL,
+	[password] VARCHAR(255) NOT NULL,
 	[email] VARCHAR(50) NOT NULL,
 	[telefono] VARCHAR(20) NOT NULL,
 	[direccion] VARCHAR(255) NOT NULL,
@@ -75,8 +74,8 @@ GO
 CREATE TABLE [Usuario] (
 	[idUsuario] INTEGER NOT NULL IDENTITY UNIQUE,
 	[idRol] INTEGER NOT NULL,
-	[username] VARCHAR(20) NOT NULL UNIQUE,
-	[password] VARCHAR(25) NOT NULL,
+	[username] VARCHAR(25) NOT NULL UNIQUE,
+	[password] VARCHAR(255) NOT NULL,
 	[activo] BIT NOT NULL,
 	PRIMARY KEY([idUsuario])
 );
@@ -100,7 +99,7 @@ CREATE TABLE [HistorialEstadoPrestamo] (
 	[idEstadoPrestamo] INTEGER NOT NULL,
 	[fechaCambio] DATE NOT NULL,
 	[idUsuario] INTEGER,
-	[Observaciones] VARCHAR(255),
+	[observaciones] VARCHAR(255),
 	PRIMARY KEY([idHistorial])
 );
 GO
@@ -117,7 +116,7 @@ GO
 
 CREATE TABLE [MetodoPago] (
 	[idMetodoPago] INTEGER NOT NULL IDENTITY UNIQUE,
-	[Descripcion] VARCHAR(25) NOT NULL,
+	[descripcion] VARCHAR(25) NOT NULL,
 	PRIMARY KEY([idMetodoPago])
 );
 GO
@@ -159,7 +158,7 @@ REFERENCES [Usuario]([idUsuario])
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 GO
 ALTER TABLE [Prestamo]
-ADD FOREIGN KEY([idUsuarioCliente])
+ADD FOREIGN KEY([idCliente])
 REFERENCES [Cliente]([idCliente])
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 GO

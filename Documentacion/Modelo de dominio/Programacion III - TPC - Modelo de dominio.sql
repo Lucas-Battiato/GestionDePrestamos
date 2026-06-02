@@ -8,7 +8,7 @@ GO
 CREATE TABLE [Prestamo] (
 	[idPrestamo] INTEGER NOT NULL IDENTITY UNIQUE,
 	[idProducto] INTEGER NOT NULL,
-	[idUsuarioCliente] INTEGER NOT NULL,
+	[idCliente] INTEGER NOT NULL,
 	[idUsuarioAprobador] INTEGER,
 	[monto] DOUBLE NOT NULL,
 	[interesTotal] DOUBLE NOT NULL,
@@ -145,7 +145,7 @@ REFERENCES [Usuario]([idUsuario])
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 GO
 ALTER TABLE [Prestamo]
-ADD FOREIGN KEY([idUsuarioCliente])
+ADD FOREIGN KEY([idCliente])
 REFERENCES [Cliente]([idCliente])
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 GO
