@@ -36,7 +36,7 @@
             
             <asp:Label ID="lblMensajeError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
 
-            <asp:Button ID="btnIngresar" runat="server" Text="Iniciar Sesión" CssClass="btn btn-corporativo w-100 fw-bold fs-5 py-2 mt-1 shadow-sm" OnClick="btnIngresar_Click" />
+            <asp:Button ID="btnIngresar" runat="server" Text="Iniciar Sesión" CssClass="btn btn-iniciar w-100 fw-bold fs-5 py-2 mt-1 shadow-sm" OnClick="btnIngresar_Click" />
             
             <div class="text-center mt-4">
                 <span class="text-secondary">¿Aún no tenés cuenta?</span> 
@@ -47,7 +47,7 @@
 
             <div class="text-center mt-3">
                 <a href="../Inicio.aspx" class="text-decoration-none text-muted">
-                    <small>← Volver al inicio principal</small>
+                    <small>← Volver al inicio</small>
                 </a>
             </div>
             

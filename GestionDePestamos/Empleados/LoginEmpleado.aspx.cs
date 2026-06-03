@@ -13,5 +13,9 @@ namespace GestionDePestamos.Operador
         {
 
         }
+        protected void btnIngresarEmpleado_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Empleados.aspx");
+        }
     }
 }

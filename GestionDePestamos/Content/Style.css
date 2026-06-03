@@ -28,13 +28,13 @@
     width: 400px;
 }
 
-.btn-corporativo {
+.btn-iniciar {
     background-color: #004481;
     color: white ;
     transition: background-color 0.3s;
 }
 
-.btn-corporativo:hover {
+.btn-iniciar:hover {
     background-color: #002b52; 
     color: white ;
 }
@@ -47,4 +47,18 @@
 .link-registro:hover {
     color: #002b52;
     text-decoration: underline;
+}
+
+/* --- LOGIN DE EMPLEADOS --- */
+
+
+.btn-ingresar {
+    background-color: #198754;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.btn-ingresar:hover {
+    background-color: #146c43; 
+    color: white;
 }
