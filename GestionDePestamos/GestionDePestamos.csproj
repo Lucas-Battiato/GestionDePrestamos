@@ -69,7 +69,8 @@
   <ItemGroup>
     <Content Include="Cliente\Clientes.aspx" />
     <Content Include="Cliente\LoginCliente.aspx" />
-    <Content Include="Content\Inicio.css" />
+    <Content Include="Cliente\Registro.aspx" />
+    <Content Include="Content\Style.css" />
     <Content Include="Empleados\Empleados.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Inicio.aspx" />
@@ -90,6 +91,13 @@
     </Compile>
     <Compile Include="Cliente\LoginCliente.aspx.designer.cs">
       <DependentUpon>LoginCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Empleados\Empleados.aspx.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>

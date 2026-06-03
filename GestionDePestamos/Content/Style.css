@@ -1,0 +1,50 @@
+﻿/* --- INICIO --- */
+
+.caja-acceso {
+    width: 330px;
+    height: 330px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.caja-acceso:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.bg-cliente {
+    background-color: #004481;
+}
+
+.bg-personal {
+    background-color: #198754;
+}
+
+
+/* --- LOGIN CLIENTES --- */
+
+
+.tarjeta-login {
+    width: 400px;
+}
+
+.btn-corporativo {
+    background-color: #004481;
+    color: white ;
+    transition: background-color 0.3s;
+}
+
+.btn-corporativo:hover {
+    background-color: #002b52; 
+    color: white ;
+}
+
+.link-registro {
+    color: #004481;
+    text-decoration: none;
+}
+
+.link-registro:hover {
+    color: #002b52;
+    text-decoration: underline;
+}

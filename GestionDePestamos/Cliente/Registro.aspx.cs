@@ -7,17 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace GestionDePestamos.Cliente
 {
-    public partial class LoginCliente : System.Web.UI.Page
+    public partial class Registro : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void btnIngresar_Click(object sender, EventArgs e)
-        {
-         
-            Response.Redirect("Clientes.aspx");
         }
     }
 }
