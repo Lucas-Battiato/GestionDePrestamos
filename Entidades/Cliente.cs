@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades {
-    internal class Cliente {
+namespace Entidades
+{
+    public class Cliente
+    {
         public int IdCliente { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

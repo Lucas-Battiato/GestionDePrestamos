@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades {
-    internal class EstadoCuota {
+namespace Entidades
+{
+    public class EstadoCuota
+    {
         public int IdEstadoCuota { get; set; }
         public string Descripcion { get; set; }
     }
