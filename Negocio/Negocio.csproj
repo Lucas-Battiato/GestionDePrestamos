@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{58B12449-A411-40C9-8A79-F58E5B012BD2}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Datos\AccesoDatos.cs" />
+    <Compile Include="Datos\RolDatos.cs" />
+    <Compile Include="Datos\UsuarioDatos.cs" />
+    <Compile Include="Datos\ClienteDatos.cs" />
+    <Compile Include="Datos\ProductoPrestamoDatos.cs" />
+    <Compile Include="Datos\TasaInteresDatos.cs" />
+    <Compile Include="Datos\EstadoPrestamoDatos.cs" />
+    <Compile Include="Datos\PrestamoDatos.cs" />
+    <Compile Include="Datos\EstadoCuotaDatos.cs" />
+    <Compile Include="Datos\MetodoPagoDatos.cs" />
+    <Compile Include="Datos\CuotaDatos.cs" />
+    <Compile Include="Datos\HistorialEstadoPrestamoDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
