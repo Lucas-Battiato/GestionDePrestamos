@@ -4,17 +4,79 @@
 
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PrestamoYa</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/Style.css" rel="stylesheet" type="text/css" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
-    <form id="form1" runat="server">
-        <div>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <form id="form1" runat="server" class="d-flex flex-column flex-grow-1">
+        <nav class="navbar navbar-dark bg-primary shadow-sm">
+            <div class="container d-flex justify-content-between">
+
+                <a class="navbar-brand fw-bold" href="../Cliente/Clientes.aspx">PrestamoYa</a>
+
+                <ul class="navbar-nav d-flex flex-row gap-4 mb-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mis Préstamos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Solicitar Préstamo</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="nav-link text-white fw-bold" OnClick="btnCerrarSesion_Click">
+                    Cerrar Sesión
+                </asp:LinkButton>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <main class="container my-5 flex-grow-1">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-        </div>
+        </main>
+
+        <footer class="bg-dark text-white py-4 mt-auto">
+            <div class="container text-center">
+                <div class="row">
+
+                    <div class="col-4">
+                        <h6 class="fw-bold text-uppercase">Atención al Cliente</h6>
+                        <small class="text-white-50 d-block">0800-123-4567</small>
+                        <small class="text-white-50 d-block">soporte@prestamoya.com</small>
+                    </div>
+
+                    <div class="col-4">
+                        <h6 class="fw-bold text-uppercase">Nuestra Empresa</h6>
+                        <small class="text-white-50 d-block">Términos y Condiciones</small>
+                        <small class="text-white-50 d-block">Política de Privacidad</small>
+                    </div>
+
+                    <div class="col-4">
+                        <h6 class="fw-bold text-uppercase">Ubicación</h6>
+                        <small class="text-white-50 d-block">Av. Corrientes 1234, CABA</small>
+                        <small class="text-white-50 d-block">Lunes a Viernes de 9 a 18hs</small>
+                    </div>
+
+                </div>
+                <hr class="border-secondary my-3" />
+                <small class="text-white-50">&copy; 2026 PrestamoYa. Todos los derechos reservados.</small>
+            </div>
+        </footer>
+
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

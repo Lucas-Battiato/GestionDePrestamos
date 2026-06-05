@@ -62,3 +62,8 @@
     background-color: #146c43; 
     color: white;
 }
+
+/* --- MASTER PAGE --- */
+.bg-panelCliente {
+    background-color: #004481 !important;
+}
