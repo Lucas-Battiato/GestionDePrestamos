@@ -1,14 +1,14 @@
 USE master
 GO
 
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'SistemaPrestamosPersonales')
-    DROP DATABASE SistemaPrestamosPersonales
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'GestionDePrestamos')
+    DROP DATABASE GestionDePrestamos
 GO
 
-CREATE DATABASE SistemaPrestamosPersonales
+CREATE DATABASE GestionDePrestamos
 GO
 
-USE SistemaPrestamosPersonales
+USE GestionDePrestamos
 GO
 
 CREATE TABLE [Rol] (

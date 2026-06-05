@@ -1,4 +1,4 @@
-USE SistemaPrestamosPersonales
+USE GestionDePrestamos
 GO
 
 
