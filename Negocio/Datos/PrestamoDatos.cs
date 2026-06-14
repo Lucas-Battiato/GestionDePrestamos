@@ -165,5 +165,73 @@ namespace Negocio.Datos
                 }
             };
         }
+
+        // Agrego un nuevo prestamo con usuario aprobador nulo (es la etapa de solicitud por parte del cliente, por ende no hay aprobación todavia) y devuelvo el ID del prestamo creado.
+        public int agregar(Prestamo prestamo) {
+            String sql = @"INSERT INTO PRESTAMO (idProducto, idCliente, idUsuarioAprobador, monto, interesTotal, cantidadCuotas, cuotasRestantes, fechaAprobacion, fechaUltimaActualizacion, idEstadoPrestamo)
+                                    VALUES (@idProducto, @idCliente, null, @monto, @interesTotal, @cantidadCuotas, @cuotasRestantes, @fechaAprobacion, @fechaUltimaActualizacion, @idEstadoPrestamo);";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idProducto", prestamo.ProductoPrestamo.IdProducto),
+                    new SqlParameter("@idCliente", prestamo.Cliente.IdCliente),
+                    new SqlParameter("@monto", prestamo.Monto),
+                    new SqlParameter("@interesTotal", prestamo.InteresTotal),
+                    new SqlParameter("@cantidadCuotas", prestamo.CantidadCuotas),
+                    new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes),
+                    new SqlParameter("@fechaAprobacion", prestamo.FechaAprobacion),
+                    new SqlParameter("@fechaUltimaActualizacion", prestamo.FechaUltimaActualizacion),
+                    new SqlParameter("@idEstadoPrestamo", prestamo.EstadoPrestamo.IdEstadoPrestamo)
+                };
+            
+                return AccesoDatos.EjecutarComandoConId(sql, parametros);
+
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+
+        }
+
+        // Cambio estado de un prestamo y devuelvo true si se afecto una fila. Si ningún prestamo fue afectado, devuelvo false.
+        public bool cambiarEstado(Prestamo prestamo) {
+            String sql = @"UPDATE PRESTAMO
+                                    SET idProducto = @idProducto,
+                                    SET idCliente = @idCliente
+                                    SET idUsuarioAprobador = @idUsuarioAprobador
+                                    SET monto = @monto
+                                    SET interesTotal = @interesTotal
+                                    SET cantidadCuotas = @cantidadCuotas
+                                    SET cuotasRestantes = @cuotasRestantes
+                                    SET fechaAprobacion = @fechaAprobacion
+                                    SET fechaUltimaActualizacion = @fechaUltimaActualizacion
+                                    SET idEstadoPrestamo = @idEstadoPrestamo
+                                WHERE idPrestamo = @idPrestamo";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idProducto", prestamo.ProductoPrestamo.IdProducto),
+                    new SqlParameter("@idCliente", prestamo.Cliente.IdCliente),
+                    new SqlParameter("@idUsuarioAprobador", prestamo.UsuarioAprobador.IdUsuario),
+                    new SqlParameter("@monto", prestamo.Monto),
+                    new SqlParameter("@interesTotal", prestamo.InteresTotal),
+                    new SqlParameter("@cantidadCuotas", prestamo.CantidadCuotas),
+                    new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes),
+                    new SqlParameter("@fechaAprobacion", prestamo.FechaAprobacion),
+                    new SqlParameter("@fechaUltimaActualizacion", prestamo.FechaUltimaActualizacion),
+                    new SqlParameter("@idEstadoPrestamo", prestamo.EstadoPrestamo.IdEstadoPrestamo),
+                    new SqlParameter("@idPrestamo", prestamo.IdPrestamo)
+                };
+
+                if (AccesoDatos.EjecutarComando(sql, parametros) == 1) return true;
+                    else return false;
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+
+        }
     }
 }
