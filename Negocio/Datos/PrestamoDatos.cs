@@ -166,10 +166,10 @@ namespace Negocio.Datos
             };
         }
 
-        // Agrego un nuevo prestamo con usuario aprobador nulo (es la etapa de solicitud por parte del cliente, por ende no hay aprobación todavia) y devuelvo el ID del prestamo creado.
+        // Agrego un nuevo prestamo con usuario aprobador nulo, fecha de aprobación nula y estado 'Solicitado' (1) y devuelvo el ID del prestamo creado.
         public int agregar(Prestamo prestamo) {
             String sql = @"INSERT INTO PRESTAMO (idProducto, idCliente, idUsuarioAprobador, monto, interesTotal, cantidadCuotas, cuotasRestantes, fechaAprobacion, fechaUltimaActualizacion, idEstadoPrestamo)
-                                    VALUES (@idProducto, @idCliente, null, @monto, @interesTotal, @cantidadCuotas, @cuotasRestantes, @fechaAprobacion, @fechaUltimaActualizacion, @idEstadoPrestamo);";
+                                    VALUES (@idProducto, @idCliente, null, @monto, @interesTotal, @cantidadCuotas, @cuotasRestantes, null, GETDATE(), 1);";
 
             try {
                 SqlParameter[] parametros = {
@@ -178,10 +178,7 @@ namespace Negocio.Datos
                     new SqlParameter("@monto", prestamo.Monto),
                     new SqlParameter("@interesTotal", prestamo.InteresTotal),
                     new SqlParameter("@cantidadCuotas", prestamo.CantidadCuotas),
-                    new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes),
-                    new SqlParameter("@fechaAprobacion", prestamo.FechaAprobacion),
-                    new SqlParameter("@fechaUltimaActualizacion", prestamo.FechaUltimaActualizacion),
-                    new SqlParameter("@idEstadoPrestamo", prestamo.EstadoPrestamo.IdEstadoPrestamo)
+                    new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes)
                 };
             
                 return AccesoDatos.EjecutarComandoConId(sql, parametros);
@@ -198,15 +195,15 @@ namespace Negocio.Datos
         public bool cambiarEstado(Prestamo prestamo) {
             String sql = @"UPDATE PRESTAMO
                                     SET idProducto = @idProducto,
-                                    SET idCliente = @idCliente
-                                    SET idUsuarioAprobador = @idUsuarioAprobador
-                                    SET monto = @monto
-                                    SET interesTotal = @interesTotal
-                                    SET cantidadCuotas = @cantidadCuotas
-                                    SET cuotasRestantes = @cuotasRestantes
-                                    SET fechaAprobacion = @fechaAprobacion
-                                    SET fechaUltimaActualizacion = @fechaUltimaActualizacion
-                                    SET idEstadoPrestamo = @idEstadoPrestamo
+                                        idCliente = @idCliente,
+                                        idUsuarioAprobador = @idUsuarioAprobador,
+                                        monto = @monto,
+                                        interesTotal = @interesTotal,
+                                        cantidadCuotas = @cantidadCuotas,
+                                        cuotasRestantes = @cuotasRestantes,
+                                        fechaAprobacion = @fechaAprobacion,
+                                        fechaUltimaActualizacion = GETDATE(),
+                                        idEstadoPrestamo = @idEstadoPrestamo
                                 WHERE idPrestamo = @idPrestamo";
 
             try {
@@ -219,7 +216,6 @@ namespace Negocio.Datos
                     new SqlParameter("@cantidadCuotas", prestamo.CantidadCuotas),
                     new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes),
                     new SqlParameter("@fechaAprobacion", prestamo.FechaAprobacion),
-                    new SqlParameter("@fechaUltimaActualizacion", prestamo.FechaUltimaActualizacion),
                     new SqlParameter("@idEstadoPrestamo", prestamo.EstadoPrestamo.IdEstadoPrestamo),
                     new SqlParameter("@idPrestamo", prestamo.IdPrestamo)
                 };

@@ -120,12 +120,11 @@ namespace Negocio.Datos
         // Metodo para agregar una cuota. Por cada cuota agregada devuelvo el ID generado.
         public int agregar(Cuota cuota) {
             String sql = @"INSERT INTO CUOTA (idPrestamo, idEstadoCuota, fechaVencimiento, fechaPago, monto, idMetodoPago)
-                                    VALUES (@idPrestamo, @idEstadoCuota, @fechaVencimiento, null, @monto, null;";
+                                    VALUES (@idPrestamo, 1, @fechaVencimiento, null, @monto, null;";
 
             try {
                 SqlParameter[] parametros = {
                     new SqlParameter("@idPrestamo", cuota.Prestamo.IdPrestamo),
-                    new SqlParameter("@idEstadoCuota", cuota.EstadoCuota.IdEstadoCuota),
                     new SqlParameter("@fechaVencimiento", cuota.FechaVencimiento),
                     new SqlParameter("@monto", cuota.Monto)
                 };
@@ -144,9 +143,9 @@ namespace Negocio.Datos
         // Devuelvo true si se registro correctamente el pago, y false si no hubo ningun registro actualizado en la DB.
         public bool registrarPago(Cuota cuota, MetodoPago metodoPago) {
             string sql = @"UPDATE CUOTA
-                                SET idEstadoCuota = 2
-                                SET fechaPago = GETDATE(),
-                                SET idMetodoPago = @idMetodoPago
+                                SET idEstadoCuota = 2,
+                                    fechaPago = GETDATE(),
+                                    idMetodoPago = @idMetodoPago
                             WHERE idCuota = @idCuota";
 
             try {
