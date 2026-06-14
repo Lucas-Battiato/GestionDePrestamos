@@ -116,5 +116,67 @@ namespace Negocio.Datos
                 Prestamo = new Prestamo { IdPrestamo = (int)fila["idPrestamo"] }
             };
         }
+
+        // Metodo para agregar una cuota. Por cada cuota agregada devuelvo el ID generado.
+        public int agregar(Cuota cuota) {
+            String sql = @"INSERT INTO CUOTA (idPrestamo, idEstadoCuota, fechaVencimiento, fechaPago, monto, idMetodoPago)
+                                    VALUES (@idPrestamo, @idEstadoCuota, @fechaVencimiento, null, @monto, null;";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idPrestamo", cuota.Prestamo.IdPrestamo),
+                    new SqlParameter("@idEstadoCuota", cuota.EstadoCuota.IdEstadoCuota),
+                    new SqlParameter("@fechaVencimiento", cuota.FechaVencimiento),
+                    new SqlParameter("@monto", cuota.Monto)
+                };
+
+                return AccesoDatos.EjecutarComandoConId(sql, parametros);
+
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+        }
+
+        // Registro el pago de una cuota.
+        // Recibe la cuota en a ser marcada como pagada y el metodo de pago elegido.
+        // Devuelvo true si se registro correctamente el pago, y false si no hubo ningun registro actualizado en la DB.
+        public bool registrarPago(Cuota cuota, MetodoPago metodoPago) {
+            string sql = @"UPDATE CUOTA
+                                SET idEstadoCuota = 2
+                                SET fechaPago = GETDATE(),
+                                SET idMetodoPago = @idMetodoPago
+                            WHERE idCuota = @idCuota";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idMetodoPago", metodoPago.IdMetodoPago),
+                    new SqlParameter("@idCuota", cuota.IdCuota)
+                };
+
+                if (AccesoDatos.EjecutarComando(sql, parametros) != 0) return true;
+                    else return false;
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+        }
+
+        // Metodo para registrar como Vencida a todas las cuotas que tengan fecha de vencimiento anterior al dia actual.
+        public int marcarVencidas() {
+            string sql = @"UPDATE CUOTA
+                                SET idEstadoCuota = 3
+                            WHERE GETDATE() > fechaVencimiento";
+
+            try {
+                return AccesoDatos.EjecutarComando(sql);
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+        }
     }
 }

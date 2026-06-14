@@ -224,7 +224,7 @@ namespace Negocio.Datos
                     new SqlParameter("@idPrestamo", prestamo.IdPrestamo)
                 };
 
-                if (AccesoDatos.EjecutarComando(sql, parametros) == 1) return true;
+                if (AccesoDatos.EjecutarComando(sql, parametros) != 0) return true;
                     else return false;
 
             } catch (Exception ex) {
