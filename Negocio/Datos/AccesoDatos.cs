@@ -49,6 +49,14 @@ namespace Negocio.Datos
             return tabla;
         }
 
+        // Ejecuta un INSERT, UPDATE o DELETE sin parametros y devuelve cuantas filas fueron afectadas.
+        public static int EjecutarComando(string sql) {
+            using (SqlConnection conexion = ObtenerConexion())
+            using (SqlCommand comando = new SqlCommand(sql, conexion)) {
+                return comando.ExecuteNonQuery();
+            }
+        }
+
         // Ejecuta un INSERT, UPDATE o DELETE con parametros y devuelve cuantas filas fueron afectadas.
         public static int EjecutarComando(string sql, SqlParameter[] parametros)
         {
