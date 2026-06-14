@@ -94,5 +94,27 @@ namespace Negocio.Datos
                 }
             };
         }
+
+        // Metodo para agregar un registro de historial de estados de prestamos. Por cada registro agregado devuelvo el ID generado.
+        public int agregar(HistorialEstadoPrestamo historialEstadoPrestamo) {
+            String sql = @"INSERT INTO HISTORIALESTADOPRESTAMO (idPrestamo, idEstadoPrestamo, fechaCambio, idUsuario, observaciones)
+                                    VALUES (@idPrestamo, @idEstadoPrestamo, GETDATE(), @idUsuario, @observaciones;";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idPrestamo", historialEstadoPrestamo.Prestamo.IdPrestamo),
+                    new SqlParameter("@idEstadoPrestamo", historialEstadoPrestamo.EstadoPrestamo.IdEstadoPrestamo),
+                    new SqlParameter("@idUsuario", historialEstadoPrestamo.Usuario.IdUsuario),
+                    new SqlParameter("@observaciones", historialEstadoPrestamo.Observaciones)
+                };
+
+                return AccesoDatos.EjecutarComandoConId(sql, parametros);
+
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+        }
     }
 }
