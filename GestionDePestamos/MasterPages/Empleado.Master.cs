@@ -19,7 +19,7 @@ namespace GestionDePestamos.MasterPages
             Session.Clear();
             Session.Abandon();
 
-            Response.Redirect("LoginEmpleado.aspx");
+            Response.Redirect("~/Inicio.aspx");
         }
     }
 }

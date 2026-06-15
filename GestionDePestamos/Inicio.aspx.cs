@@ -13,5 +13,12 @@ namespace GestionDePestamos
         {
 
         }
+
+        protected void btnIngresar_Click(object sender, EventArgs e)
+        {
+            Session["UsuarioId"] = 1;
+       
+            Response.Redirect("~/Cliente/Clientes.aspx");
+        }
     }
 }

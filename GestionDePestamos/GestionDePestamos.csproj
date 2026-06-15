@@ -66,13 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cliente\Clientes.aspx" />
-    <Content Include="Cliente\LoginCliente.aspx" />
+    <Content Include="Cliente\MisPrestamos.aspx" />
     <Content Include="Cliente\Registro.aspx" />
+    <Content Include="Cliente\SolicitarPrestamo.aspx" />
     <Content Include="Content\Style.css" />
     <Content Include="Empleados\Empleados.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Inicio.aspx" />
-    <Content Include="Empleados\LoginEmpleado.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -83,12 +83,12 @@
     <Compile Include="Cliente\Clientes.aspx.designer.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cliente\LoginCliente.aspx.cs">
-      <DependentUpon>LoginCliente.aspx</DependentUpon>
+    <Compile Include="Cliente\MisPrestamos.aspx.cs">
+      <DependentUpon>MisPrestamos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cliente\LoginCliente.aspx.designer.cs">
-      <DependentUpon>LoginCliente.aspx</DependentUpon>
+    <Compile Include="Cliente\MisPrestamos.aspx.designer.cs">
+      <DependentUpon>MisPrestamos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente\Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
@@ -96,6 +96,13 @@
     </Compile>
     <Compile Include="Cliente\Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\SolicitarPrestamo.aspx.cs">
+      <DependentUpon>SolicitarPrestamo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\SolicitarPrestamo.aspx.designer.cs">
+      <DependentUpon>SolicitarPrestamo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Empleados\Empleados.aspx.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
@@ -113,13 +120,6 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Empleados\LoginEmpleado.aspx.cs">
-      <DependentUpon>LoginEmpleado.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Empleados\LoginEmpleado.aspx.designer.cs">
-      <DependentUpon>LoginEmpleado.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPages\Cliente.Master.cs">
       <DependentUpon>Cliente.Master</DependentUpon>
