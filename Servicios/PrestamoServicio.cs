@@ -10,16 +10,41 @@ namespace Servicios {
     public class PrestamoServicio {
         PrestamoDatos prestamoDatos = new PrestamoDatos();
 
-        // Metodo para validar y agregar una nueva solicitud de prestamo (no aprueba, solo lo registra en la DB)
+        //Metodo para generar un prestamo SIN GUARDARLO en la DB.
+        //Util para llamarlo desde sección de simulación en "GestionDePrestamos/Cliente/SolicitarPrestamo.aspx"
+        public Prestamo simular(ProductoPrestamo productoDeseado, decimal montoDeseado, int cuotasDeseadas, Cliente cliente {
+            Prestamo prestamoSimulado = new Prestamo();
+            prestamoSimulado.ProductoPrestamo = productoDeseado;
+            prestamoSimulado.Cliente = cliente;
+            prestamoSimulado.Monto = montoDeseado;
+            prestamoSimulado.CantidadCuotas = cuotasDeseadas;
+            calcularInteres(prestamoSimulado);
+
+            return prestamoSimulado;
+        }
+
+
+        // Metodo para generar una nueva solicitud de prestamo (NO aprueba, solo lo registra en la DB)
         public int generar(Prestamo prestamo) {
-            //Agregar validaciones necesarias
-            // Agregar registro en historial de cambiuos en eestado de prestamo.
+            //Se valida previamente en code behind de "GestionDePrestamos/Cliente/SolicitarPrestamo.aspx".
+            // Agregar registro en historial de cambiuos de eestado de prestamo.
+            EstadoPrestamo estadoSolicitado = new EstadoPrestamo();
+            estadoSolicitado.IdEstadoPrestamo = 1; // Solicitado
+            prestamo.EstadoPrestamo = estadoSolicitado;
+
+            HistorialEstadoPrestamo historialSolicitado = new HistorialEstadoPrestamo();
+            historialSolicitado.Prestamo = prestamo;
+            historialSolicitado.EstadoPrestamo = estadoSolicitado;
+
+            HistorialEstadoPrestamoDatos historialDatos = new HistorialEstadoPrestamoDatos();
+            historialDatos.agregar(historialSolicitado);
+
             return prestamoDatos.agregar(prestamo);
         }
         
 
         // Metodo para aprobar un prestamo.
-        // Registra el cambio en el historial, genera todas las cuotas, envia mail de confirmación, y devuelve true o false dependiendo de si se aprobo correctamente o no.
+        // Registra el cambio en el historial, genera todas las cuotas, envia mail de confirmación.
         public void aprobar(Prestamo prestamo, Usuario usuario, string observacion) {
             /*
                 - Recibo el prestamo
@@ -36,7 +61,7 @@ namespace Servicios {
 
             // Registro cambio de estado a aprobado
             EstadoPrestamo estadoAprobado = new EstadoPrestamo();
-            estadoAprobado.IdEstadoPrestamo = 2;
+            estadoAprobado.IdEstadoPrestamo = 2; // Aprobado
             prestamo.EstadoPrestamo = estadoAprobado;
             prestamoDatos.cambiarEstado(prestamo);
 
@@ -52,7 +77,7 @@ namespace Servicios {
 
             // Registro cambio de estado a En Curso.
             EstadoPrestamo estadoEnCurso = new EstadoPrestamo();
-            estadoEnCurso.IdEstadoPrestamo = 4;
+            estadoEnCurso.IdEstadoPrestamo = 4; // En curso
             prestamo.EstadoPrestamo = estadoEnCurso;
             prestamoDatos.cambiarEstado(prestamo);
 
@@ -64,9 +89,9 @@ namespace Servicios {
             historialDatos.agregar(historialEnCurso);
 
 
-            // Calculo monto de las cuotas
-            decimal totalAPagar = prestamo.Monto + prestamo.InteresTotal;
-            decimal montoCuota = Math.Floor((totalAPagar / prestamo.CantidadCuotas) * 100) / 100; // Asumo como perdida los centavos que pueda dar de diferencia cuando la division no sea exacta
+            //Genero todas las cuotas
+            CuotaServicio cuotaServicio = new CuotaServicio();
+            CuotaDatos cuotaDatos = new CuotaDatos();
 
             // Tomo como fecha de vencimiento de la primer cuota el 10 del mes siguiente al siguiente de la aprobacion.
             DateTime fechaBase = new DateTime(
@@ -75,14 +100,12 @@ namespace Servicios {
                 10
             ).AddMonths(2);
 
-            //Genero todas las cuotas. Para la fecha de vencimiento contemplo que no caiga ni sabado ni domingo (las corro hacia adelante)
-            CuotaDatos cuotaDatos = new CuotaDatos();
+            Cuota cuota = cuotaServicio.calcularCuota(prestamo); //Me devuelve una cuota con el monto ya calculado.
+            cuota.Prestamo = prestamo;
+            cuota.EstadoCuota.IdEstadoCuota = 1; //Estado Pendiente
 
             for (int i = 0; i < prestamo.CantidadCuotas; i++) {
-                Cuota cuota = new Cuota();
-                cuota.Prestamo = prestamo;
-                cuota.Monto = montoCuota;
-
+                // Seteo la fecha de vencimiento de cada cuota. Si cae sabado o domingo ajusto el dia para que caiga lunes
                 DateTime fechaVencimiento = fechaBase.AddMonths(i);
                 if (fechaVencimiento.DayOfWeek == DayOfWeek.Saturday)
                     fechaVencimiento = fechaVencimiento.AddDays(2); //Agrego 2 dias para que sea el lunes sigueinte
@@ -98,13 +121,51 @@ namespace Servicios {
         }
 
 
-        // Metodo para rechazar un prestamo. Registra cambios en el historial, envia mail de rechazo, y devuelve true o false dependiendo de si se pudieron completar todos los pasos correctamente o no.
-        public void rechazar(Prestamo prestamo) {
+        // Metodo para rechazar un prestamo. Registra cambios en el historial, envia mail de rechazo.
+        public void rechazar(Prestamo prestamo, Usuario usuario, string observacion) {
             /*
-                Recibo el prestamo
-                Registro cambio de estado prestamo en historial (rechazado)
+                - Recibo el prestamo
+                - Registro cambio de estado prestamo en historial (rechazado)
                 Envio mail de rechazo
             */
+
+            prestamo.UsuarioAprobador = usuario;
+            prestamo.CuotasRestantes = 0;
+
+
+            // Registro cambio de estado a aprobado
+            EstadoPrestamo estadoRechazado = new EstadoPrestamo();
+            estadoRechazado.IdEstadoPrestamo = 3; // Rechazado
+            prestamo.EstadoPrestamo = estadoRechazado;
+            prestamoDatos.cambiarEstado(prestamo);
+
+            HistorialEstadoPrestamo historialRechazado = new HistorialEstadoPrestamo();
+            historialRechazado.Prestamo = prestamo;
+            historialRechazado.EstadoPrestamo = estadoRechazado;
+            historialRechazado.Usuario = usuario;
+            historialRechazado.Observaciones = observacion;
+
+            HistorialEstadoPrestamoDatos historialDatos = new HistorialEstadoPrestamoDatos();
+            historialDatos.agregar(historialRechazado);
+
+            // ¡¡AGREGAR LOGICA PARA ENVIO DE MAILS. RE-VER GRABACION DEL AULA VIRTUAL!!
+
         }
+
+        private void calcularInteres(Prestamo prestamo) {
+            // -Llamar a TasaInteresDatos para consultar la tasa correspondiente al producto y cuotas solicitado.
+            // -Calcular interes total del prestamo solicitado y agregarlo al prestamo
+            TasaInteresDatos tasaInteresDatos = new TasaInteresDatos();
+            List<TasaInteres> listaIntereses = tasaInteresDatos.Listar();
+            foreach (TasaInteres tasa in listaIntereses) {
+                if (tasa.ProductoPrestamo.IdProducto == prestamo.ProductoPrestamo.IdProducto) {
+                    if (prestamo.CantidadCuotas >= tasa.CuotasDesde && prestamo.CantidadCuotas <= tasa.CuotasHasta) {
+                        prestamo.InteresTotal = prestamo.Monto * (tasa.TasaMensual + 1);
+                    }
+                }
+            }
+        }
+
+
     }
 }
