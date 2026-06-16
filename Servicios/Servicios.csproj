@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CuotaServicio.cs" />
+    <Compile Include="MailServicio.cs" />
     <Compile Include="PrestamoServicio.cs" />
     <Compile Include="ProductoPrestamoServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

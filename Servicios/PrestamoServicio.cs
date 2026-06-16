@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Entidades;
+using Negocio.Datos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using Entidades;
-using Negocio.Datos;
 
 namespace Servicios {
     public class PrestamoServicio {
@@ -12,7 +14,7 @@ namespace Servicios {
 
         //Metodo para generar un prestamo SIN GUARDARLO en la DB.
         //Util para llamarlo desde sección de simulación en "GestionDePrestamos/Cliente/SolicitarPrestamo.aspx"
-        public Prestamo simular(ProductoPrestamo productoDeseado, decimal montoDeseado, int cuotasDeseadas, Cliente cliente {
+        public Prestamo simular(ProductoPrestamo productoDeseado, decimal montoDeseado, int cuotasDeseadas, Cliente cliente) {
             Prestamo prestamoSimulado = new Prestamo();
             prestamoSimulado.ProductoPrestamo = productoDeseado;
             prestamoSimulado.Cliente = cliente;
@@ -51,7 +53,7 @@ namespace Servicios {
                 - Registro cambio de estado prestamo en historial (aprobado)
                 - Registro cambio de estado prestamo en historial (En curso)
                 - Genero cuotas
-                Envio mail de confirmación con plan de cuotas
+                - Envio mail de confirmación con plan de cuotas
             */
 
             prestamo.UsuarioAprobador = usuario;
@@ -117,7 +119,9 @@ namespace Servicios {
                 cuotaDatos.agregar(cuota);
             }
 
-            // ¡¡AGREGAR LOGICA PARA ENVIO DE MAILS. RE-VER GRABACION DEL AULA VIRTUAL!!
+            // Envio mail
+            MailServicio.enviarMailPrestamoAprobado(prestamo);
+
         }
 
 
@@ -126,7 +130,7 @@ namespace Servicios {
             /*
                 - Recibo el prestamo
                 - Registro cambio de estado prestamo en historial (rechazado)
-                Envio mail de rechazo
+                - Envio mail de rechazo
             */
 
             prestamo.UsuarioAprobador = usuario;
@@ -148,7 +152,8 @@ namespace Servicios {
             HistorialEstadoPrestamoDatos historialDatos = new HistorialEstadoPrestamoDatos();
             historialDatos.agregar(historialRechazado);
 
-            // ¡¡AGREGAR LOGICA PARA ENVIO DE MAILS. RE-VER GRABACION DEL AULA VIRTUAL!!
+            // Envio mail
+            MailServicio.enviarMailPrestamoRechazado(prestamo, observacion);
 
         }
 
