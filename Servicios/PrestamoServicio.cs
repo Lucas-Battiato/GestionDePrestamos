@@ -12,7 +12,7 @@ namespace Servicios {
 
         //Metodo para generar un prestamo SIN GUARDARLO en la DB.
         //Util para llamarlo desde sección de simulación en "GestionDePrestamos/Cliente/SolicitarPrestamo.aspx"
-        public Prestamo simular(ProductoPrestamo productoDeseado, decimal montoDeseado, int cuotasDeseadas, Cliente cliente {
+        public Prestamo simular(ProductoPrestamo productoDeseado, decimal montoDeseado, int cuotasDeseadas, Cliente cliente) {
             Prestamo prestamoSimulado = new Prestamo();
             prestamoSimulado.ProductoPrestamo = productoDeseado;
             prestamoSimulado.Cliente = cliente;

@@ -11,7 +11,34 @@ namespace GestionDePestamos.Empleados
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                
 
+                ConfigurarPermisos();
+            }
+        }
+
+        private void ConfigurarPermisos()
+        {
+            // Simulamos que leemos la base de datos y sabemos el rol.
+            // (Cambiar "Operador" por "Admin" para ver como aparece el menu de abajo)
+            string rolUsuario = "Admin";
+
+            // Mostramos el rol en la pantalla para que sepas con que cuenta estas ingresando
+            lblRolActual.Text = rolUsuario;
+
+            
+            if (rolUsuario != "Admin")
+            {
+                
+                pnlAdministrador.Visible = false;
+            }
+            else
+            {
+            
+                pnlAdministrador.Visible = true;
+            }
         }
     }
 }
