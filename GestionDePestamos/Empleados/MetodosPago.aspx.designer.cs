@@ -7,47 +7,38 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GestionDePestamos.Cliente
+namespace GestionDePestamos.Empleados
 {
 
 
-    public partial class Clientes
+    public partial class MetodosPago
     {
 
         /// <summary>
-        /// Control lblNombreCliente.
+        /// Control txtDescripcion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNombreCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
 
         /// <summary>
-        /// Control lblMontoProximo.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMontoProximo;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
 
         /// <summary>
-        /// Control lblFechaProximo.
+        /// Control dgvMetodos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFechaProximo;
-
-        /// <summary>
-        /// Control lblCantidadPrestamos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantidadPrestamos;
+        protected global::System.Web.UI.WebControls.GridView dgvMetodos;
     }
 }

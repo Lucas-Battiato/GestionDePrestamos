@@ -11,7 +11,26 @@ namespace GestionDePestamos.MasterPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                ConfigurarMenuSegunRol();
+            }
+        }
 
+        private void ConfigurarMenuSegunRol()
+        {
+            // Variable para testear (Cambia a "Operador" para ver como desaparece el menu amarillo)
+            string rolUsuario = "Admin";
+
+            if (rolUsuario != "Admin")
+            {
+                // Apagamos el menu de administracion completo desde el servidor
+                navItemAdmin.Visible = false;
+            }
+            else
+            {
+                navItemAdmin.Visible = true;
+            }
         }
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {

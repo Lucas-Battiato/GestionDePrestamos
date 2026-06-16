@@ -11,25 +11,16 @@ namespace GestionDePestamos.Empleados
 {
 
 
-    public partial class Empleados
+    public partial class EstadosPrestamo
     {
 
         /// <summary>
-        /// Control lblRolActual.
+        /// Control dgvEstadosPrestamo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRolActual;
-
-        /// <summary>
-        /// Control pnlAdministrador.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAdministrador;
+        protected global::System.Web.UI.WebControls.GridView dgvEstadosPrestamo;
     }
 }
