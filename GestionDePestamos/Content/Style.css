@@ -67,3 +67,17 @@
 .bg-panelCliente {
     background-color: #004481 !important;
 }
+
+
+/* --- REGISTRO DE CLIENTES --- */
+
+.tarjeta-registro {
+    width: 400px;
+}
+
+@media (max-width: 576px) {
+    .tarjeta-registro {
+        width: 100%;
+        margin: 0 1rem;
+    }
+}
