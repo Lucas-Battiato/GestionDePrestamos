@@ -102,3 +102,8 @@ INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMens
 INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 121, 180, 0.0350);
 INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 181, 240, 0.0400);
 GO
+
+-- ===================== --
+-- CLIENTE TEST --
+-- ===================== --
+INSERT INTO Cliente VALUES('testCliente', 'test123', 'progra7a@gmail.com', '1111-1111', 'Calle Falsa 123')
