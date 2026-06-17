@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Entidades;
 
 namespace Servicios {
-    internal class CuotaServicio {
+    public class CuotaServicio {
 
         //Metodo para calcular el monto final que tendra cada cuota a partir de los datos del prestamo solicitado.
         public Cuota calcularCuota(Prestamo prestamo) {

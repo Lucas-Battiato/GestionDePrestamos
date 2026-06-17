@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Entidades;
+using Negocio.Datos;
 
 namespace GestionDePestamos
 {
@@ -16,7 +18,11 @@ namespace GestionDePestamos
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            Session["UsuarioId"] = 1;
+            ClienteDatos clienteDatos = new ClienteDatos();
+            Entidades.Cliente cliente = new Entidades.Cliente();
+            cliente = clienteDatos.ObtenerPorId(1);
+
+            Session.Add("cliente", cliente);
        
             Response.Redirect("~/Cliente/Clientes.aspx");
         }

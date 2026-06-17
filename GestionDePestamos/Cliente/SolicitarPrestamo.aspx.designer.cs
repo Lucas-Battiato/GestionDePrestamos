@@ -7,12 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GestionDePestamos.Cliente
-{
+namespace GestionDePestamos.Cliente {
 
 
-    public partial class SolicitarPrestamo
-    {
+    public partial class SolicitarPrestamo {
 
         /// <summary>
         /// Control ddlProducto.
@@ -103,5 +101,14 @@ namespace GestionDePestamos.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmar;
+
+        /// <summary>
+        /// Control modalBody.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label modalBody;
     }
 }

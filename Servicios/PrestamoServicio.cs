@@ -33,15 +33,18 @@ namespace Servicios {
             EstadoPrestamo estadoSolicitado = new EstadoPrestamo();
             estadoSolicitado.IdEstadoPrestamo = 1; // Solicitado
             prestamo.EstadoPrestamo = estadoSolicitado;
+            int idPrestamo = prestamoDatos.agregar(prestamo);
 
             HistorialEstadoPrestamo historialSolicitado = new HistorialEstadoPrestamo();
             historialSolicitado.Prestamo = prestamo;
+            historialSolicitado.Prestamo.IdPrestamo = idPrestamo;
             historialSolicitado.EstadoPrestamo = estadoSolicitado;
+
 
             HistorialEstadoPrestamoDatos historialDatos = new HistorialEstadoPrestamoDatos();
             historialDatos.agregar(historialSolicitado);
 
-            return prestamoDatos.agregar(prestamo);
+            return idPrestamo;
         }
         
 
@@ -165,7 +168,7 @@ namespace Servicios {
             foreach (TasaInteres tasa in listaIntereses) {
                 if (tasa.ProductoPrestamo.IdProducto == prestamo.ProductoPrestamo.IdProducto) {
                     if (prestamo.CantidadCuotas >= tasa.CuotasDesde && prestamo.CantidadCuotas <= tasa.CuotasHasta) {
-                        prestamo.InteresTotal = prestamo.Monto * (tasa.TasaMensual + 1);
+                        prestamo.InteresTotal = prestamo.Monto * (tasa.TasaMensual);
                     }
                 }
             }

@@ -16,8 +16,7 @@ namespace Negocio.Datos
 
             string sql = @"SELECT idProducto, nombre, descripcion,
                                   montoMinimo, montoMaximo, cuotasMinimas, cuotasMaximas
-                           FROM ProductoPrestamo
-                           ORDER BY nombre";
+                           FROM ProductoPrestamo";
 
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
 

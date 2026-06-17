@@ -7,12 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GestionDePestamos.MasterPages
-{
+namespace GestionDePestamos.MasterPages {
 
 
-    public partial class Cliente
-    {
+    public partial class Cliente {
 
         /// <summary>
         /// Control head.
@@ -31,6 +29,15 @@ namespace GestionDePestamos.MasterPages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
         /// Control btnCerrarSesion.
