@@ -35,16 +35,16 @@
                     <div class="card-body p-4 table-responsive">
                         
                         <asp:GridView ID="dgvMetodos" runat="server" CssClass="table table-hover align-middle" 
-                                      AutoGenerateColumns="False" GridLines="None">
+                                      AutoGenerateColumns="False" GridLines="None" DataKeyNames="IdMetodoPago">
                             <HeaderStyle CssClass="table-light text-secondary" />
                             <Columns>
-                                <asp:BoundField DataField="IdMetodo" HeaderText="ID" ItemStyle-Width="50px" />
+                                <asp:BoundField DataField="IdMetodoPago" HeaderText="ID" ItemStyle-Width="50px" Visible="false"/>
                                 <asp:BoundField DataField="Descripcion" HeaderText="Método de Pago" />
                                 
                                 <asp:TemplateField>
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-sm btn-outline-primary me-1">Editar</asp:LinkButton>
-                                        <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-sm btn-outline-danger">Eliminar</asp:LinkButton>
+                                        <%--<asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-sm btn-outline-primary me-1" OnClick="btnEditar_Click">Editar</asp:LinkButton>--%>
+                                        <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminar_Click">Eliminar</asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

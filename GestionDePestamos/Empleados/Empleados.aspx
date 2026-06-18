@@ -69,9 +69,9 @@
                 <div class="col-md-3">
                     <a href="MetodosPago.aspx" class="btn btn-outline-secondary w-100 py-2 fw-semibold">Métodos de Pago</a>
                 </div>
-                <div class="col-md-3">
+                <%--<div class="col-md-3">
                     <a href="Roles.aspx" class="btn btn-outline-secondary w-100 py-2 fw-semibold">Ver Roles</a>
-                </div>
+                </div>--%>
                 <div class="col-md-3">
                     <a href="EstadosPrestamo.aspx" class="btn btn-outline-secondary w-100 py-2 fw-semibold">Ver Estados (Préstamos)</a>
                 </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio.Datos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ namespace GestionDePestamos.Empleados
 {
     public partial class EstadosPrestamo : System.Web.UI.Page
     {
+        EstadoPrestamoDatos estadoPrestamoDatos = new EstadoPrestamoDatos();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -19,7 +22,8 @@ namespace GestionDePestamos.Empleados
 
         private void CargarGrilla()
         {
-            
+            dgvEstadosPrestamo.DataSource = estadoPrestamoDatos.Listar();
+            dgvEstadosPrestamo.DataBind();
         }
     }
 }

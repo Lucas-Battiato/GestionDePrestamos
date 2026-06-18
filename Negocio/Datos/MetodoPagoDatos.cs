@@ -1,7 +1,8 @@
+using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Entidades;
 
 namespace Negocio.Datos
 {
@@ -14,7 +15,7 @@ namespace Negocio.Datos
         {
             List<MetodoPago> lista = new List<MetodoPago>();
 
-            string sql = "SELECT idMetodoPago, descripcion FROM MetodoPago ORDER BY descripcion";
+            string sql = "SELECT idMetodoPago, descripcion FROM MetodoPago;";
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
 
             foreach (DataRow fila in tabla.Rows)
@@ -49,6 +50,65 @@ namespace Negocio.Datos
                 IdMetodoPago = (int)fila["idMetodoPago"],
                 Descripcion  = fila["descripcion"].ToString()
             };
+        }
+
+        public int guardar(MetodoPago metodoPago) {
+            String sql = @"INSERT INTO MetodoPago (descripcion) VALUES (@descripcion);";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@descripcion", metodoPago.Descripcion)
+                };
+
+                return AccesoDatos.EjecutarComandoConId(sql, parametros);
+
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+        }
+
+        public bool eliminar(MetodoPago metodoPago) {
+            String sql = @"DELETE FROM MetodoPago WHERE idMetodoPago = @idMetodoPago";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idMetodoPago", metodoPago.IdMetodoPago)
+                };
+
+                if (AccesoDatos.EjecutarComando(sql, parametros) > 0) {
+                    return true;
+                }
+
+                return false;
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+
+        }
+
+        public bool modificar(MetodoPago metodoPago) {
+            String sql = @"UPDATE MetodoPago SET Descripcion=@descripcion WHERE idMetodoPago = @idMetodoPago";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idMetodoPago", metodoPago.IdMetodoPago),
+                    new SqlParameter("@descripcion", metodoPago.Descripcion)
+                };
+
+                if (AccesoDatos.EjecutarComando(sql, parametros) > 0) {
+                    return true;
+                }
+
+                return false;
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
         }
     }
 }

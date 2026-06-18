@@ -14,7 +14,7 @@ namespace Negocio.Datos
         {
             List<EstadoPrestamo> lista = new List<EstadoPrestamo>();
 
-            string sql = "SELECT idEstadoPrestamo, descripcion FROM EstadoPrestamo ORDER BY descripcion";
+            string sql = "SELECT idEstadoPrestamo, descripcion FROM EstadoPrestamo";
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
 
             foreach (DataRow fila in tabla.Rows)

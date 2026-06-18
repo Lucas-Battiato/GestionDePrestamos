@@ -22,7 +22,7 @@
                                       AutoGenerateColumns="False" GridLines="None">
                             <HeaderStyle CssClass="table-dark text-white" />
                             <Columns>
-                                <asp:BoundField DataField="IdEstado" HeaderText="ID" ItemStyle-Width="80px" />
+                                <asp:BoundField DataField="IdEstadoPrestamo" HeaderText="ID" ItemStyle-Width="80px" />
                                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción del Estado" />
                             </Columns>
                             <EmptyDataTemplate>
