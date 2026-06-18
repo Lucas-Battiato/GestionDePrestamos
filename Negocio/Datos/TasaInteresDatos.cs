@@ -1,7 +1,8 @@
+using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Entidades;
 
 namespace Negocio.Datos
 {
@@ -20,7 +21,7 @@ namespace Negocio.Datos
                                   p.montoMinimo, p.montoMaximo, p.cuotasMinimas, p.cuotasMaximas
                            FROM TasaInteres t
                            INNER JOIN ProductoPrestamo p ON t.idProducto = p.idProducto
-                           ORDER BY p.nombre, t.cuotasDesde";
+                           ORDER BY p.idProducto, t.cuotasDesde";
 
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
 
@@ -100,6 +101,80 @@ namespace Negocio.Datos
                     CuotasMaximas = (int)fila["cuotasMaximas"]
                 }
             };
+        }
+
+
+        // Metodo para agregar una tasa de interes a la DB
+        public int agregar(TasaInteres tasaInteres) {
+            String sql = @"INSERT INTO TASAINTERES (idProducto, cuotasDesde, cuotasHasta, tasaMensual)
+                                    VALUES (@idProducto, @cuotasDesde, @cuotasHasta, @tasaMensual);";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idProducto", tasaInteres.ProductoPrestamo.IdProducto),
+                    new SqlParameter("@cuotasDesde", tasaInteres.CuotasDesde),
+                    new SqlParameter("@cuotasHasta", tasaInteres.CuotasHasta),
+                    new SqlParameter("@tasaMensual", tasaInteres.TasaMensual)
+                };
+
+                return AccesoDatos.EjecutarComandoConId(sql, parametros);
+
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+
+        }
+
+        // Metodo para actualizar una tasa de interes en la DB
+        public bool actualizar(TasaInteres tasaInteres) {
+            String sql = @"UPDATE TASAINTERES
+                                    SET idProducto = @idProducto,
+                                        cuotasDesde = @cuotasDesde,
+                                        cuotasHasta = @cuotasHasta,
+                                        tasaMensual = @tasaMensual
+                                WHERE idTasaInteres = @idTasaInteres";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idProducto", tasaInteres.ProductoPrestamo.IdProducto),
+                    new SqlParameter("@idCliente", tasaInteres.CuotasDesde),
+                    new SqlParameter("@idUsuarioAprobador", tasaInteres.CuotasHasta),
+                    new SqlParameter("@monto", tasaInteres.TasaMensual)
+                };
+
+                if (AccesoDatos.EjecutarComando(sql, parametros) != 0) return true;
+                else return false;
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+
+        }
+
+
+        // Metodo para eliminar una tasa de interes de la DB
+        public bool eliminar(TasaInteres tasaInteres) {
+            String sql = @"DELETE FROM TASAINTERES WHERE idTasaInteres = @idTasaInteres";
+
+            try {
+                SqlParameter[] parametros = {
+                    new SqlParameter("@idTasaInteres", tasaInteres.IdTasaInteres)
+                };
+
+                if (AccesoDatos.EjecutarComando(sql, parametros) > 0) {
+                    return true;
+                }
+
+                return false;
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+
         }
     }
 }

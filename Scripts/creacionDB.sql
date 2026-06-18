@@ -109,7 +109,7 @@ CREATE TABLE [TasaInteres] (
 	[idProducto] INTEGER NOT NULL,
 	[cuotasDesde] INTEGER NOT NULL,
 	[cuotasHasta] INTEGER NOT NULL,
-	[tasaMensual] DECIMAL(5,4) NOT NULL,
+	[tasaMensual] DECIMAL(7,4) NOT NULL,
 	PRIMARY KEY([idTasaInteres])
 );
 GO

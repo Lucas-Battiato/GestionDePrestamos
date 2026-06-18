@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,11 @@ namespace GestionDePestamos.Empleados
         {
             if (!IsPostBack)
             {
-                
+                if (Session["usuario"] == null) {
+                    Response.Redirect("~/Inicio.aspx");
+                }
+
+                lblNombreUsuario.Text = ((Usuario)Session["usuario"]).Username;
 
                 ConfigurarPermisos();
             }

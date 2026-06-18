@@ -14,16 +14,19 @@ namespace GestionDePestamos
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            UsuarioDatos usuarioDatos = new UsuarioDatos();
+            Usuario usuario = usuarioDatos.ObtenerPorId(1);
+
+            Session.Add("usuario", usuario);
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
             ClienteDatos clienteDatos = new ClienteDatos();
-            Entidades.Cliente cliente = new Entidades.Cliente();
-            cliente = clienteDatos.ObtenerPorId(1);
+            Entidades.Cliente cliente = cliente = clienteDatos.ObtenerPorId(1);
 
             Session.Add("cliente", cliente);
-       
+                   
             Response.Redirect("~/Cliente/Clientes.aspx");
         }
     }

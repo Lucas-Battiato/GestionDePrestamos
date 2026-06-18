@@ -9,7 +9,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <h2 class="fw-bold text-dark">Panel de Gestión</h2>
-                <p class="text-muted">Bienvenido al sistema. Rol actual: <asp:Label ID="lblRolActual" runat="server" CssClass="badge bg-info text-dark"></asp:Label></p>
+                <p class="text-muted"><asp:Label ID="lblNombreUsuario" runat="server" Font-Bold></asp:Label>, bienvenido al sistema. <br>Rol actual: <asp:Label ID="lblRolActual" runat="server" CssClass="badge bg-info text-dark"></asp:Label></p>
             </div>
         </div>
 
