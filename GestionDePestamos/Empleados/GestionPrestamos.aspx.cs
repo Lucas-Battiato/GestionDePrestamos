@@ -4,6 +4,7 @@ using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
+using Servicios;
 
 namespace GestionDePestamos.Empleados {
     public partial class GestionPrestamos : System.Web.UI.Page {
@@ -21,12 +22,22 @@ namespace GestionDePestamos.Empleados {
         }
 
         protected void btnAprobar_Click(object sender, EventArgs e) {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "modal", "new bootstrap.Modal(document.getElementById('modalDecision')).show();", true);
+
+            LinkButton boton = (LinkButton)sender;
+            GridViewRow fila = (GridViewRow)boton.NamingContainer;
+            hfIdPrestamo.Value = dgvSolicitudes.DataKeys[fila.RowIndex].Value.ToString(); //Tomo el ID del prestamo
         }
 
         protected void btnRechazar_Click(object sender, EventArgs e) {
         }
 
         protected void btnConfirmarDecision_Click(object sender, EventArgs e) {
+            PrestamoServicio prestamoServicio = new PrestamoServicio();
+
+            prestamoServicio.aprobar(int.Parse(hfIdPrestamo.Value), (Usuario)Session["usuario"], txtObservacion.Text);
+
+            cargarGrilla();
         }
 
         private void cargarGrilla() {

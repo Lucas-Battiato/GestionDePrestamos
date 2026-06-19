@@ -120,7 +120,7 @@ namespace Negocio.Datos
         // Metodo para agregar una cuota. Por cada cuota agregada devuelvo el ID generado.
         public int agregar(Cuota cuota) {
             String sql = @"INSERT INTO CUOTA (idPrestamo, idEstadoCuota, fechaVencimiento, fechaPago, monto, idMetodoPago)
-                                    VALUES (@idPrestamo, 1, @fechaVencimiento, null, @monto, null;";
+                                    VALUES (@idPrestamo, 1, @fechaVencimiento, null, @monto, null);";
 
             try {
                 SqlParameter[] parametros = {

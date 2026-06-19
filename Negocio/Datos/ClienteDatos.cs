@@ -42,6 +42,21 @@ namespace Negocio.Datos
             return MapearFila(tabla.Rows[0]);
         }
 
+
+        // Busca y retorna un cliente por su nombre de usuario. Si no existe, retorna null.
+        public Cliente ObtenerPorUsername(string username) {
+            string sql = @"SELECT idCliente, username, password, email, telefono, direccion
+                           FROM Cliente
+                           WHERE username = @username";
+
+            SqlParameter[] parametros = { new SqlParameter("@username", username) };
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);
+
+            if (tabla.Rows.Count == 0) return null;
+            return MapearFila(tabla.Rows[0]);
+        }
+
+
         // public int Agregar(Cliente cliente) { ... }
         // public bool Modificar(Cliente cliente) { ... }
         // public bool Eliminar(int idCliente) { ... }

@@ -50,7 +50,7 @@ namespace Servicios {
 
         // Metodo para aprobar un prestamo.
         // Registra el cambio en el historial, genera todas las cuotas, envia mail de confirmación.
-        public void aprobar(Prestamo prestamo, Usuario usuario, string observacion) {
+        public void aprobar(int idPrestamo, Usuario usuario, string observacion) {
             /*
                 - Recibo el prestamo
                 - Registro cambio de estado prestamo en historial (aprobado)
@@ -58,6 +58,8 @@ namespace Servicios {
                 - Genero cuotas
                 - Envio mail de confirmación con plan de cuotas
             */
+
+            Prestamo prestamo = prestamoDatos.ObtenerPorId(idPrestamo);
 
             prestamo.UsuarioAprobador = usuario;
             prestamo.FechaAprobacion = DateTime.Now;
@@ -107,7 +109,7 @@ namespace Servicios {
 
             Cuota cuota = cuotaServicio.calcularCuota(prestamo); //Me devuelve una cuota con el monto ya calculado.
             cuota.Prestamo = prestamo;
-            cuota.EstadoCuota.IdEstadoCuota = 1; //Estado Pendiente
+            cuota.EstadoCuota = new EstadoCuota { IdEstadoCuota = 1 }; //Estado Pendiente
 
             for (int i = 0; i < prestamo.CantidadCuotas; i++) {
                 // Seteo la fecha de vencimiento de cada cuota. Si cae sabado o domingo ajusto el dia para que caiga lunes
@@ -123,7 +125,7 @@ namespace Servicios {
             }
 
             // Envio mail
-            MailServicio.enviarMailPrestamoAprobado(prestamo);
+            //MailServicio.enviarMailPrestamoAprobado(prestamo);
 
         }
 
@@ -156,7 +158,7 @@ namespace Servicios {
             historialDatos.agregar(historialRechazado);
 
             // Envio mail
-            MailServicio.enviarMailPrestamoRechazado(prestamo, observacion);
+            //MailServicio.enviarMailPrestamoRechazado(prestamo, observacion);
 
         }
 

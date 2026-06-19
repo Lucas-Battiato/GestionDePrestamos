@@ -70,6 +70,7 @@
     <Content Include="Cliente\Registro.aspx" />
     <Content Include="Cliente\SolicitarPrestamo.aspx" />
     <Content Include="Content\Style.css" />
+    <Content Include="Empleados\CobroCuotas.aspx" />
     <Content Include="Empleados\Empleados.aspx" />
     <Content Include="Empleados\EstadosCuota.aspx" />
     <Content Include="Empleados\EstadosPrestamo.aspx" />
@@ -109,6 +110,13 @@
     </Compile>
     <Compile Include="Cliente\SolicitarPrestamo.aspx.designer.cs">
       <DependentUpon>SolicitarPrestamo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\CobroCuotas.aspx.cs">
+      <DependentUpon>CobroCuotas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\CobroCuotas.aspx.designer.cs">
+      <DependentUpon>CobroCuotas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Empleados\Empleados.aspx.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
