@@ -45,6 +45,7 @@
     <Compile Include="Cuota.cs" />
     <Compile Include="DTOs\CuotaDTO.cs" />
     <Compile Include="DTOs\SolicitudPrestamoDTO.cs" />
+    <Compile Include="DTOs\UsuarioDTO.cs" />
     <Compile Include="EstadoCuota.cs" />
     <Compile Include="EstadoPrestamo.cs" />
     <Compile Include="HistorialEstadoPrestamo.cs" />

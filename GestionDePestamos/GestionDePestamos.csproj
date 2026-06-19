@@ -70,14 +70,19 @@
     <Content Include="Cliente\Registro.aspx" />
     <Content Include="Cliente\SolicitarPrestamo.aspx" />
     <Content Include="Content\Style.css" />
+    <Content Include="Empleados\AvisosVencimiento.aspx" />
     <Content Include="Empleados\CobroCuotas.aspx" />
     <Content Include="Empleados\Empleados.aspx" />
     <Content Include="Empleados\EstadosCuota.aspx" />
     <Content Include="Empleados\EstadosPrestamo.aspx" />
+    <Content Include="Empleados\GestionClientes.aspx" />
     <Content Include="Empleados\GestionPrestamos.aspx" />
     <Content Include="Empleados\MetodosPago.aspx" />
+    <Content Include="Empleados\Productos.aspx" />
+    <Content Include="Empleados\Reportes.aspx" />
     <Content Include="Empleados\Roles.aspx" />
     <Content Include="Empleados\TasasInteres.aspx" />
+    <Content Include="Empleados\Usuarios.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Inicio.aspx" />
     <Content Include="Web.config" />
@@ -111,6 +116,13 @@
     <Compile Include="Cliente\SolicitarPrestamo.aspx.designer.cs">
       <DependentUpon>SolicitarPrestamo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleados\AvisosVencimiento.aspx.cs">
+      <DependentUpon>AvisosVencimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\AvisosVencimiento.aspx.designer.cs">
+      <DependentUpon>AvisosVencimiento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Empleados\CobroCuotas.aspx.cs">
       <DependentUpon>CobroCuotas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -139,6 +151,13 @@
     <Compile Include="Empleados\EstadosPrestamo.aspx.designer.cs">
       <DependentUpon>EstadosPrestamo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleados\GestionClientes.aspx.cs">
+      <DependentUpon>GestionClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\GestionClientes.aspx.designer.cs">
+      <DependentUpon>GestionClientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Empleados\GestionPrestamos.aspx.cs">
       <DependentUpon>GestionPrestamos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -153,6 +172,20 @@
     <Compile Include="Empleados\MetodosPago.aspx.designer.cs">
       <DependentUpon>MetodosPago.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleados\Productos.aspx.cs">
+      <DependentUpon>Productos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Productos.aspx.designer.cs">
+      <DependentUpon>Productos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Reportes.aspx.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Reportes.aspx.designer.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Empleados\Roles.aspx.cs">
       <DependentUpon>Roles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -166,6 +199,13 @@
     </Compile>
     <Compile Include="Empleados\TasasInteres.aspx.designer.cs">
       <DependentUpon>TasasInteres.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Usuarios.aspx.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Usuarios.aspx.designer.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
