@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Cliente.cs" />
     <Compile Include="Cuota.cs" />
+    <Compile Include="DTOs\SolicitudPrestamoDTO.cs" />
     <Compile Include="EstadoCuota.cs" />
     <Compile Include="EstadoPrestamo.cs" />
     <Compile Include="HistorialEstadoPrestamo.cs" />

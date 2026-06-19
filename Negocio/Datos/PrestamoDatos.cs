@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Entidades;
+using Entidades.DTOs;
 
 namespace Negocio.Datos
 {
@@ -110,6 +111,43 @@ namespace Negocio.Datos
 
             return lista;
         }
+
+
+        public List<SolicitudPrestamoDTO> listarSolicitados() {
+            try {
+                List<SolicitudPrestamoDTO> lista = new List<SolicitudPrestamoDTO>();
+
+                string sql = @"SELECT p.idPrestamo, c.username, pr.Nombre, p.fechaUltimaActualizacion,
+                        p.monto, p.monto + p.interesTotal as MontoADevolver, p.interesTotal as GananciaEstimada,
+                        p.cantidadCuotas
+                    FROM Prestamo p
+                    INNER JOIN ProductoPrestamo pr ON p.idProducto = pr.idProducto
+                    INNER JOIN Cliente c ON p.idCliente = c.idCliente
+                    WHERE p.idEstadoPrestamo = 1
+                    ORDER BY p.fechaUltimaActualizacion DESC";
+
+                DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
+
+                foreach (DataRow fila in tabla.Rows) {
+                    lista.Add(new SolicitudPrestamoDTO {
+                        IdPrestamo = (int)fila["idPrestamo"],
+                        UsernameCliente = fila["username"].ToString(),
+                        NombreProducto = fila["Nombre"].ToString(),
+                        FechaSolicitud = (DateTime)fila["fechaUltimaActualizacion"],
+                        MontoSolicitado = (decimal)fila["monto"],
+                        MontoADevolver = (decimal)fila["MontoADevolver"],
+                        GananciaEstimada = (decimal)fila["GananciaEstimada"],
+                        DetalleCuotas = fila["cantidadCuotas"].ToString() + " cuotas"
+                    });
+                }
+
+                return lista;
+
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
 
         // public int Agregar(Prestamo prestamo) { ... }
         // public bool Modificar(Prestamo prestamo) { ... }
