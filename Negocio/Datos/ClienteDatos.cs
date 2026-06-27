@@ -57,8 +57,43 @@ namespace Negocio.Datos
         }
 
 
-        // public int Agregar(Cliente cliente) { ... }
-        // public bool Modificar(Cliente cliente) { ... }
+        // Registra un nuevo cliente y devuelve el id generado.
+        public int Agregar(Cliente cliente)
+        {
+            string sql = @"INSERT INTO Cliente (username, password, email, telefono, direccion)
+                           VALUES (@username, @password, @email, @telefono, @direccion)";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@username", cliente.Username),
+                new SqlParameter("@password", cliente.Password),
+                new SqlParameter("@email", cliente.Email),
+                new SqlParameter("@telefono", cliente.Telefono),
+                new SqlParameter("@direccion", cliente.Direccion)
+            };
+
+            return AccesoDatos.EjecutarComandoConId(sql, parametros);
+        }
+
+        // Actualiza los datos de un cliente existente. Devuelve true si se modifico al menos un registro.
+        public bool Modificar(Cliente cliente)
+        {
+            string sql = @"UPDATE Cliente
+                           SET username = @username, password = @password, email = @email,
+                               telefono = @telefono, direccion = @direccion
+                           WHERE idCliente = @idCliente";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@username", cliente.Username),
+                new SqlParameter("@password", cliente.Password),
+                new SqlParameter("@email", cliente.Email),
+                new SqlParameter("@telefono", cliente.Telefono),
+                new SqlParameter("@direccion", cliente.Direccion),
+                new SqlParameter("@idCliente", cliente.IdCliente)
+            };
+
+            return AccesoDatos.EjecutarComando(sql, parametros) > 0;
+        }
+
         // public bool Eliminar(int idCliente) { ... }
         // public Cliente BuscarPorUsername(string username) { ... }
         // public List<Cliente> Filtrar(string termino) { ... }

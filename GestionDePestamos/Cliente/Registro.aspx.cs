@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
+using Negocio.Datos;
 
 namespace GestionDePestamos.Cliente {
     public partial class Registro : System.Web.UI.Page {
@@ -21,7 +22,10 @@ namespace GestionDePestamos.Cliente {
             cliente.Direccion = txtDireccion.Text;
             cliente.Telefono = txtTelefono.Text;
 
-            // Seguir cuando Ricky implemente metodo Agregar() en ClienteDatos.
+            ClienteDatos clienteDatos = new ClienteDatos();
+            clienteDatos.Agregar(cliente);
+
+            Response.Redirect("~/Inicio.aspx");
         }
     }
 }
