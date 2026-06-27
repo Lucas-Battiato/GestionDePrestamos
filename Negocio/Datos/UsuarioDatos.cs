@@ -46,10 +46,58 @@ namespace Negocio.Datos
             return MapearFila(tabla.Rows[0]);
         }
 
-        // public int Agregar(Usuario usuario) { ... }
-        // public bool Modificar(Usuario usuario) { ... }
+        // Registra un nuevo usuario y devuelve el id generado.
+        public int Agregar(Usuario usuario)
+        {
+            string sql = @"INSERT INTO Usuario (idRol, username, password, activo)
+                           VALUES (@idRol, @username, @password, @activo)";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@idRol", usuario.Rol.IdRol),
+                new SqlParameter("@username", usuario.Username),
+                new SqlParameter("@password", usuario.Password),
+                new SqlParameter("@activo", usuario.Activo)
+            };
+
+            return AccesoDatos.EjecutarComandoConId(sql, parametros);
+        }
+
+        // Actualiza los datos de un usuario existente. Devuelve true si se modifico al menos un registro.
+        public bool Modificar(Usuario usuario)
+        {
+            string sql = @"UPDATE Usuario
+                           SET idRol = @idRol, username = @username, password = @password,
+                               activo = @activo
+                           WHERE idUsuario = @idUsuario";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@idRol", usuario.Rol.IdRol),
+                new SqlParameter("@username", usuario.Username),
+                new SqlParameter("@password", usuario.Password),
+                new SqlParameter("@activo", usuario.Activo),
+                new SqlParameter("@idUsuario", usuario.IdUsuario)
+            };
+
+            return AccesoDatos.EjecutarComando(sql, parametros) > 0;
+        }
+
         // public bool Eliminar(int idUsuario) { ... }
-        // public Usuario BuscarPorUsername(string username) { ... }
+
+        // Busca y retorna un usuario por su nombre de usuario con su rol incluido. Si no existe, retorna null.
+        public Usuario BuscarPorUsername(string username)
+        {
+            string sql = @"SELECT u.idUsuario, u.username, u.password, u.activo, u.idRol,
+                                  r.descripcion AS descripcionRol
+                           FROM Usuario u
+                           INNER JOIN Rol r ON u.idRol = r.idRol
+                           WHERE u.username = @username";
+
+            SqlParameter[] parametros = { new SqlParameter("@username", username) };
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);
+
+            if (tabla.Rows.Count == 0) return null;
+            return MapearFila(tabla.Rows[0]);
+        }
 
         // Convierte una fila del DataTable en un objeto Usuario con su Rol anidado.
         private Usuario MapearFila(DataRow fila)
