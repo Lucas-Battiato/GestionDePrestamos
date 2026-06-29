@@ -64,7 +64,7 @@ namespace GestionDePestamos.Cliente {
 
             
             CuotaServicio cuotaServicio = new CuotaServicio();
-
+            Entidades.Cliente clienteAux = (Entidades.Cliente)Session["cliente"];
             prestamoSimulado = prestamoServicio.simular(productoSeleccionado, monto, int.Parse(ddlCuotas.SelectedValue), (Entidades.Cliente)Session["cliente"]);
             Session.Add("prestamoSimulado", prestamoSimulado);
 
@@ -74,14 +74,28 @@ namespace GestionDePestamos.Cliente {
             lblCantCuotasResumen.Text = prestamoSimulado.CantidadCuotas.ToString();
             lblTotalDevolver.Text = $"${(cuotaServicio.calcularCuota(prestamoSimulado).Monto * prestamoSimulado.CantidadCuotas).ToString("N2", new CultureInfo("es-AR"))}";
 
+            divRecibo.Visible = true;
             btnConfirmar.Visible = true;
 
         }
 
         protected void btnConfirmar_Click(object sender, EventArgs e) {
-            prestamoServicio.generar((Prestamo)Session["prestamoSimulado"]);
+            
+            if (!fuRecibo.HasFile || fuRecibo.PostedFile.ContentType != "application/pdf") {
+                lblErrorRecibo.Text = "Debe adjuntar su recibo de sueldo en formato PDF.";
+                lblErrorRecibo.Visible = true;
+                return;
+            }
+
+            int idPrestamo = prestamoServicio.generar((Prestamo)Session["prestamoSimulado"]);
+
+            // Defino la ruta de los recibos y creo la carpeta si no existe
+            string rutaRecibo = Server.MapPath($"~/ArchivosSistema/Recibos/recibo_Prestamo{idPrestamo}.pdf");
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(rutaRecibo));
+            fuRecibo.SaveAs(rutaRecibo);
 
             Response.Redirect("~/Cliente/MisPrestamos.aspx");
+
         }
 
         protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e) {

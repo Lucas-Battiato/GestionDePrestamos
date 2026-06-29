@@ -43,7 +43,7 @@ namespace GestionDePestamos {
                 Entidades.Cliente clienteValidado = clienteDatos.ObtenerPorUsername(cliente.Username);
 
                 if (clienteValidado != null && clienteValidado.Password.Equals(cliente.Password)) {
-                    Session.Add("cliente", cliente);
+                    Session.Add("cliente", clienteValidado);
                     Response.Redirect("~/Cliente/Clientes.aspx");
 
                 } else {

@@ -40,6 +40,21 @@ namespace GestionDePestamos.Empleados {
             cargarGrilla();
         }
 
+
+        protected void btnDescargar_Click(object sender, EventArgs e) {
+            LinkButton boton = (LinkButton)sender;
+            GridViewRow fila = (GridViewRow)boton.NamingContainer;
+            int idPrestamo = int.Parse(dgvSolicitudes.DataKeys[fila.RowIndex].Value.ToString()); // Leo el ID del prestamo desde la fila en donde esta ubicado el boton.
+
+            string ruta = Server.MapPath($"~/ArchivosSistema/Recibos/recibo_Prestamo{idPrestamo}.pdf");
+
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", $"attachment; filename=recibo_Prestamo{idPrestamo}.pdf");
+            Response.TransmitFile(ruta);
+            Response.End();
+        }
+
+
         private void cargarGrilla() {
             dgvSolicitudes.DataSource = prestamoDatos.listarSolicitados();
             dgvSolicitudes.DataBind();

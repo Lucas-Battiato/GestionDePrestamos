@@ -88,6 +88,19 @@
 
                     </div>
 
+
+                    <div class="mt-4" id="divRecibo" runat="server" visible="false">
+                        <label class="form-label fw-semibold text-secondary">
+                            Recibo de Sueldo <span class="text-danger">*</span>
+                        </label>
+                        <asp:FileUpload ID="fuRecibo" runat="server" CssClass="form-control bg-light" />
+                        <div style="min-height: 20px;">
+                            <asp:Label ID="lblErrorRecibo" runat="server" CssClass="text-danger small" Visible="false"
+                                Text="Debe adjuntar su recibo de sueldo en formato PDF." />
+                        </div>
+                    </div>
+
+
                     <div class="mt-auto pt-4">
                         <asp:Button ID="btnConfirmar" runat="server" Text="Confirmar y Solicitar Préstamo"
                             CssClass="btn btn-success btn-lg w-100 fw-bold shadow"

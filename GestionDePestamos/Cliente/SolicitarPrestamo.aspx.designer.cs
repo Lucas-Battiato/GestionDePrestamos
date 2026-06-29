@@ -94,6 +94,33 @@ namespace GestionDePestamos.Cliente {
         protected global::System.Web.UI.WebControls.Label lblTotalDevolver;
 
         /// <summary>
+        /// Control divRecibo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRecibo;
+
+        /// <summary>
+        /// Control fuRecibo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuRecibo;
+
+        /// <summary>
+        /// Control lblErrorRecibo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorRecibo;
+
+        /// <summary>
         /// Control btnConfirmar.
         /// </summary>
         /// <remarks>

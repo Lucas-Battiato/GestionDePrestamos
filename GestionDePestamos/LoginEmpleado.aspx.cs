@@ -44,7 +44,7 @@ namespace GestionDePestamos {
                 Usuario usuarioValidado = usuarioDatos.BuscarPorUsername(usuario.Username);
 
                 if (usuarioValidado != null && usuarioValidado.Password.Equals(usuario.Password)) {
-                    Session.Add("usuario", usuario);
+                    Session.Add("usuario", usuarioValidado);
                     Response.Redirect("~/Empleados/Empleados.aspx");
 
                 } else {

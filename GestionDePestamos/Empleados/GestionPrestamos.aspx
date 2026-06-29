@@ -33,6 +33,15 @@
                         <asp:BoundField DataField="GananciaEstimada" HeaderText="Ganancia Estimada" DataFormatString="{0:C2}" />
                         <asp:BoundField DataField="DetalleCuotas" HeaderText="Cuotas" />
 
+
+                        <asp:TemplateField HeaderText="Recibo">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnDescargar" runat="server"
+                                    CssClass="btn btn-sm btn-outline-secondary"
+                                    OnClick="btnDescargar_Click">⬇ Descargar</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnAprobar" runat="server"
