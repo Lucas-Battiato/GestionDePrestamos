@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="GestionDePestamos.Inicio" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LoginEmpleado.aspx.cs" Inherits="GestionDePestamos.LoginEmpleado" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,8 +17,8 @@
 
             <div class="card shadow-lg border-0 rounded-4 tarjeta-login" style="width: 400px;">
 
-                <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
-                    <h3 class="m-0 fw-bold">Ingreso Clientes</h3>
+                <div class="card-header bg-success text-white text-center py-4 rounded-top-4">
+                    <h3 class="m-0 fw-bold">Ingreso Empleados</h3>
                 </div>
 
                 <div class="card-body p-5 text-dark">
@@ -39,18 +39,9 @@
                         </div>
                     </div>
 
-                    <asp:Button ID="btnIngresar" runat="server" Text="Iniciar Sesión" CssClass="btn btn-primary w-100 fw-bold fs-5 py-2 mt-3 shadow-sm" OnClick="btnIngresar_Click" />
+                    <asp:Button ID="btnIngresar" runat="server" Text="Iniciar Sesión" CssClass="btn btn-success w-100 fw-bold fs-5 py-2 mt-3 shadow-sm" OnClick="btnIngresar_Click" />
                     <div style="min-height: 30px;">
                         <asp:Label ID="lblErrorLogin" runat="server" Text="" CssClass="text-danger small"></asp:Label>
-                    </div>
-
-                    <div class="text-center mt-3">
-                        <a href="LoginEmpleado.aspx" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><small>Acceso empleados</small></a>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <span class="text-secondary">¿Sos cliente nuevo?</span>
-                        <a href="Cliente/Registro.aspx" class="fw-bold link-registro">¡Registrate acá!</a>
                     </div>
 
                 </div>

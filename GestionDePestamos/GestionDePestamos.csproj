@@ -85,6 +85,7 @@
     <Content Include="Empleados\Usuarios.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Inicio.aspx" />
+    <Content Include="LoginEmpleado.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginEmpleado.aspx.cs">
+      <DependentUpon>LoginEmpleado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginEmpleado.aspx.designer.cs">
+      <DependentUpon>LoginEmpleado.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPages\Cliente.Master.cs">
       <DependentUpon>Cliente.Master</DependentUpon>

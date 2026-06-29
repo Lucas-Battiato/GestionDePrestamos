@@ -10,7 +10,7 @@
 namespace GestionDePestamos {
 
 
-    public partial class Inicio {
+    public partial class LoginEmpleado {
 
         /// <summary>
         /// Control form1.

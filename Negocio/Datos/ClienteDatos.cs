@@ -57,6 +57,21 @@ namespace Negocio.Datos
         }
 
 
+
+        // Busca y retorna un cliente por su correo electronico. Si no existe, retorna null.
+        public Cliente ObtenerPorEmail(string email) {
+            string sql = @"SELECT idCliente, username, password, email, telefono, direccion
+                           FROM Cliente
+                           WHERE email = @email";
+
+            SqlParameter[] parametros = { new SqlParameter("@email", email) };
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);
+
+            if (tabla.Rows.Count == 0) return null;
+            return MapearFila(tabla.Rows[0]);
+        }
+
+
         // Registra un nuevo cliente y devuelve el id generado.
         public int Agregar(Cliente cliente)
         {

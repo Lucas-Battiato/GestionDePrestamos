@@ -1,26 +1,27 @@
-﻿using System;
+﻿using Entidades;
+using Negocio.Datos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Entidades;
-using Negocio.Datos;
 
 namespace GestionDePestamos {
-    public partial class Inicio : System.Web.UI.Page {
+    public partial class LoginEmpleado : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
 
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e) {
-            Entidades.Cliente cliente = new Entidades.Cliente();
-            ClienteDatos clienteDatos = new ClienteDatos();
+            Usuario usuario = new Usuario();
+            UsuarioDatos usuarioDatos = new UsuarioDatos();
+            
             bool flagValidacion = true;
 
             // Valido nombre de usuario
             if (txtUsuario.Text.Trim() != "") {
-                cliente.Username = txtUsuario.Text.Trim();
+                usuario.Username = txtUsuario.Text.Trim();
                 lblErrorUsername.Text = "";
 
             } else {
@@ -31,7 +32,7 @@ namespace GestionDePestamos {
 
             // Valido contraseña
             if (txtPassword.Text.Trim() != "") {
-                cliente.Password = txtPassword.Text.Trim();
+                usuario.Password = txtPassword.Text.Trim();
                 lblErrorPassword.Text = "";
 
             } else {
@@ -40,11 +41,11 @@ namespace GestionDePestamos {
             }
 
             if (flagValidacion) {
-                Entidades.Cliente clienteValidado = clienteDatos.ObtenerPorUsername(cliente.Username);
+                Usuario usuarioValidado = usuarioDatos.BuscarPorUsername(usuario.Username);
 
-                if (clienteValidado != null && clienteValidado.Password.Equals(cliente.Password)) {
-                    Session.Add("cliente", cliente);
-                    Response.Redirect("~/Cliente/Clientes.aspx");
+                if (usuarioValidado != null && usuarioValidado.Password.Equals(usuario.Password)) {
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("~/Empleados/Empleados.aspx");
 
                 } else {
                     lblErrorLogin.Text = "Usuario o contraseña incorrecta. Intente de nuevo";

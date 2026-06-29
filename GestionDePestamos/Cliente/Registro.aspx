@@ -30,26 +30,41 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold text-secondary">Nombre de usuario</label>
                         <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control form-control-lg bg-light text-dark"/>
+                        <div style="min-height: 30px;">
+                            <asp:Label ID="lblErrorUsername" runat="server" Text="" CssClass="text-danger small"></asp:Label>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold text-secondary">Contraseña</label>
                         <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control form-control-lg bg-light text-dark"/>
+                        <div style="min-height: 30px;">
+                            <asp:Label ID="lblErrorPassword" runat="server" Text="" CssClass="text-danger small"></asp:Label>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold text-secondary">Correo electrónico</label>
                         <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" CssClass="form-control form-control-lg bg-light text-dark"/>
+                        <div style="min-height: 30px;">
+                            <asp:Label ID="lblErrorEmail" runat="server" Text="" CssClass="text-danger small"></asp:Label>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold text-secondary">Teléfono</label>
                         <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control form-control-lg bg-light text-dark"/>
+                        <div style="min-height: 30px;">
+                            <asp:Label ID="lblErrorTelefono" runat="server" Text="" CssClass="text-danger small"></asp:Label>
+                        </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-semibold text-secondary">Dirección</label>
                         <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control form-control-lg bg-light text-dark"/>
+                        <div style="min-height: 30px;">
+                            <asp:Label ID="lblErrorDireccion" runat="server" Text="" CssClass="text-danger small"></asp:Label>
+                        </div>
                     </div>
 
                     <asp:Button ID="btnRegistrar" runat="server" Text="Crear cuenta" CssClass="btn btn-iniciar w-100 fw-bold fs-5 py-2 shadow-sm" OnClick="btnRegistrar_Click" />
