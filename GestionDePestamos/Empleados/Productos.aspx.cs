@@ -1,4 +1,5 @@
-﻿using Negocio.Datos;
+﻿using Entidades;
+using Negocio.Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,16 @@ namespace GestionDePestamos.Empleados {
 
         ProductoPrestamoDatos productoPrestamoDatos = new ProductoPrestamoDatos();
         protected void Page_Load(object sender, EventArgs e) {
+
+            if ((Usuario)Session["usuario"] == null) {
+                Response.Redirect("~/Inicio.aspx");
+            }
+
+            // Si el usuario no es administrador lo mando de nuevo a la pantalla de Empleados
+            if (((Usuario)Session["usuario"]).Rol.Descripcion != "Administrador") {
+                Response.Redirect("~/Empleados/Empleados.aspx");
+            }
+
             if (!IsPostBack) {
 
                 CargarGrilla();

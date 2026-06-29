@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,18 +20,17 @@ namespace GestionDePestamos.MasterPages
 
         private void ConfigurarMenuSegunRol()
         {
-            // Variable para testear (Cambia a "Operador" para ver como desaparece el menu amarillo)
-            string rolUsuario = "Admin";
+            // Si el usuario es Operador oculto el panel de admin. Si es Administrador, lo habilito.
+            switch (((Usuario)Session["usuario"]).Rol.Descripcion) {
+                case "Administrador":
+                    navItemAdmin.Visible = true;
+                    break;
 
-            if (rolUsuario != "Admin")
-            {
-                // Apagamos el menu de administracion completo desde el servidor
-                navItemAdmin.Visible = false;
+                case "Operador":
+                    navItemAdmin.Visible = false;
+                    break;
             }
-            else
-            {
-                navItemAdmin.Visible = true;
-            }
+
         }
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {

@@ -6,14 +6,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace GestionDePestamos.Empleados
-{
-    public partial class Empleados : System.Web.UI.Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
+namespace GestionDePestamos.Empleados {
+    public partial class Empleados : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
+            if (!IsPostBack) {
                 if (Session["usuario"] == null) {
                     Response.Redirect("~/Inicio.aspx");
                 }
@@ -24,25 +20,19 @@ namespace GestionDePestamos.Empleados
             }
         }
 
-        private void ConfigurarPermisos()
-        {
-            // Simulamos que leemos la base de datos y sabemos el rol.
-            // (Cambiar "Operador" por "Admin" para ver como aparece el menu de abajo)
-            string rolUsuario = "Admin";
+        private void ConfigurarPermisos() {
 
-            // Mostramos el rol en la pantalla para que sepas con que cuenta estas ingresando
-            lblRolActual.Text = rolUsuario;
+            lblRolActual.Text = ((Usuario)Session["usuario"]).Rol.Descripcion;
+            
+            // Si el usuario es Operador oculto el panel de admin. Si es Administrador, lo habilito.
+            switch (((Usuario)Session["usuario"]).Rol.Descripcion) {
+                case "Administrador":
+                    pnlAdministrador.Visible = true;
+                    break;
 
-            
-            if (rolUsuario != "Admin")
-            {
-                
-                pnlAdministrador.Visible = false;
-            }
-            else
-            {
-            
-                pnlAdministrador.Visible = true;
+                case "Operador":
+                    pnlAdministrador.Visible = false;
+                    break;
             }
         }
     }

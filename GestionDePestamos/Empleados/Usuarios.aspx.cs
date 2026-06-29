@@ -17,6 +17,11 @@ namespace GestionDePestamos.Empleados {
                 Response.Redirect("~/Inicio.aspx");
             }
 
+            // Si el usuario no es administrador lo mando de nuevo a la pantalla de Empleados
+            if ( ((Usuario)Session["usuario"]).Rol.Descripcion != "Administrador" ) {
+                Response.Redirect("~/Empleados/Empleados.aspx");
+            }
+
             if (!IsPostBack) {
 
                 cargarGrilla();

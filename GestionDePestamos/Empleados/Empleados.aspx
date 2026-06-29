@@ -42,6 +42,8 @@
 
         </div>
 
+
+
         <asp:Panel ID="pnlAdministrador" runat="server">
             
             <h4 class="fw-semibold text-secondary mb-3 border-top pt-4">Administración del Sistema</h4>
@@ -69,9 +71,6 @@
                 <div class="col-md-3">
                     <a href="MetodosPago.aspx" class="btn btn-outline-secondary w-100 py-2 fw-semibold">Métodos de Pago</a>
                 </div>
-                <%--<div class="col-md-3">
-                    <a href="Roles.aspx" class="btn btn-outline-secondary w-100 py-2 fw-semibold">Ver Roles</a>
-                </div>--%>
                 <div class="col-md-3">
                     <a href="EstadosPrestamo.aspx" class="btn btn-outline-secondary w-100 py-2 fw-semibold">Ver Estados (Préstamos)</a>
                 </div>
