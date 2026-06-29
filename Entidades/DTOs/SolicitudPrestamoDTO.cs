@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Entidades.DTOs {
     public class SolicitudPrestamoDTO {
         public int IdPrestamo { get; set; }
+        public int IdCliente { get; set; }
         public string UsernameCliente { get; set; }
         public string NombreProducto { get; set; }
         public DateTime FechaSolicitud { get; set; }
@@ -14,5 +15,7 @@ namespace Entidades.DTOs {
         public decimal MontoADevolver { get; set; }
         public decimal GananciaEstimada { get; set; }
         public string DetalleCuotas { get; set; }
+        public string PuntuacionTexto { get; set; }
+        public string PuntuacionCssClass { get; set; }
     }
 }

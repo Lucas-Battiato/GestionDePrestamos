@@ -1,10 +1,13 @@
 ﻿using Entidades;
+using Entidades;
+using Entidades.DTOs;
 using Negocio.Datos;
+using Servicios;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Entidades;
-using Servicios;
 
 namespace GestionDePestamos.Empleados {
     public partial class GestionPrestamos : System.Web.UI.Page {
@@ -56,9 +59,30 @@ namespace GestionDePestamos.Empleados {
 
 
         private void cargarGrilla() {
-            dgvSolicitudes.DataSource = prestamoDatos.listarSolicitados();
+
+            List<SolicitudPrestamoDTO> listaSolicitudes = prestamoDatos.listarSolicitados();
+
+            foreach (SolicitudPrestamoDTO solicitud in listaSolicitudes) {
+                decimal puntuacion = obtenerPuntuacionCrediticia(solicitud.IdCliente);
+                solicitud.PuntuacionTexto = puntuacion == -1 ? "Sin historial" : $"{puntuacion}%";
+                solicitud.PuntuacionCssClass = puntuacion == -1 ? "bg-secondary" :
+                                       puntuacion >= 80 ? "bg-success" :
+                                       puntuacion >= 50 ? "bg-warning text-dark" : "bg-danger";
+            }
+
+            dgvSolicitudes.DataSource = listaSolicitudes;
             dgvSolicitudes.DataBind();
 
+        }
+
+        // Obtengo una puntuación crediticia calculada como creditosFinalizados / creditosTotalesObtenidos
+        private decimal obtenerPuntuacionCrediticia(int idCliente) {
+            List<Prestamo> historial = prestamoDatos.ListarPorCliente(idCliente);
+            int finalizados = historial.Count(p => p.EstadoPrestamo.IdEstadoPrestamo == 5);
+            int cancelados = historial.Count(p => p.EstadoPrestamo.IdEstadoPrestamo == 6);
+            int total = finalizados + cancelados;
+            if (total == 0) return -1;
+            return Math.Round((decimal)finalizados / total * 100, 1);
         }
     }
 }

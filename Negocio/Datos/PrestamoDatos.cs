@@ -117,7 +117,7 @@ namespace Negocio.Datos
             try {
                 List<SolicitudPrestamoDTO> lista = new List<SolicitudPrestamoDTO>();
 
-                string sql = @"SELECT p.idPrestamo, c.username, pr.Nombre, p.fechaUltimaActualizacion,
+                string sql = @"SELECT p.idPrestamo, p.idCliente, c.username, pr.Nombre, p.fechaUltimaActualizacion,
                         p.monto, p.monto + p.interesTotal as MontoADevolver, p.interesTotal as GananciaEstimada,
                         p.cantidadCuotas
                     FROM Prestamo p
@@ -131,6 +131,7 @@ namespace Negocio.Datos
                 foreach (DataRow fila in tabla.Rows) {
                     lista.Add(new SolicitudPrestamoDTO {
                         IdPrestamo = (int)fila["idPrestamo"],
+                        IdCliente = (int)fila["idCliente"],
                         UsernameCliente = fila["username"].ToString(),
                         NombreProducto = fila["Nombre"].ToString(),
                         FechaSolicitud = (DateTime)fila["fechaUltimaActualizacion"],

@@ -26,32 +26,44 @@
                     <Columns>
                         <asp:BoundField DataField="IdPrestamo" HeaderText="ID" />
                         <asp:BoundField DataField="UsernameCliente" HeaderText="Cliente" />
+
+                        <asp:TemplateField HeaderText="Puntuación">
+                            <ItemTemplate>
+                                <span class='<%# "badge " + Eval("PuntuacionCssClass") %>'>
+                                    <%# Eval("PuntuacionTexto") %>
+                                </span>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         <asp:BoundField DataField="NombreProducto" HeaderText="Producto" />
                         <asp:BoundField DataField="FechaSolicitud" HeaderText="Fecha Solicitud" DataFormatString="{0:dd/MM/yyyy}" />
                         <asp:BoundField DataField="MontoSolicitado" HeaderText="Monto Solicitado" DataFormatString="{0:C2}" />
                         <asp:BoundField DataField="MontoADevolver" HeaderText="Monto a Devolver" DataFormatString="{0:C2}" />
                         <asp:BoundField DataField="GananciaEstimada" HeaderText="Ganancia Estimada" DataFormatString="{0:C2}" />
-                        <asp:BoundField DataField="DetalleCuotas" HeaderText="Cuotas" />
+                        <asp:BoundField DataField="DetalleCuotas" HeaderText="Cuotas" ItemStyle-CssClass="text-nowrap" />
 
 
                         <asp:TemplateField HeaderText="Recibo">
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnDescargar" runat="server"
                                     CssClass="btn btn-sm btn-outline-secondary"
-                                    OnClick="btnDescargar_Click">⬇ Descargar</asp:LinkButton>
+                                    title="Descargar recibo"
+                                    OnClick="btnDescargar_Click">⬇</asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
+
 
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnAprobar" runat="server"
-                                    CssClass="btn btn-sm btn-success me-1"
+                                    CssClass="btn btn-sm btn-success d-block mb-1"
                                     OnClick="btnAprobar_Click">Aprobar</asp:LinkButton>
                                 <asp:LinkButton ID="btnRechazar" runat="server"
-                                    CssClass="btn btn-sm btn-outline-danger"
+                                    CssClass="btn btn-sm btn-outline-danger d-block"
                                     OnClick="btnRechazar_Click">Rechazar</asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
+
                     </Columns>
                     <EmptyDataTemplate>
                         <div class="alert alert-info text-center m-0">No hay solicitudes pendientes de evaluación.</div>
