@@ -13,5 +13,7 @@ namespace Entidades.DTOs {
         public string EstadoDescripcion { get; set; }
         public string EstadoCssClass { get; set; }
         public bool PuedeRegistrarPago { get; set; }
+        public DateTime? FechaPago { get; set; }
+        public string MetodoPago { get; set; }
     }
 }

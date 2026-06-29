@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entidades;
+using Negocio.Datos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +22,18 @@ namespace GestionDePestamos.MasterPages
             Session.Abandon();
 
             Response.Redirect("~/Inicio.aspx");
+        }
+
+        protected void btnSolicitarPrestamo_Click(object sender, EventArgs e) {
+            PrestamoDatos prestamoDatos = new PrestamoDatos();
+            Prestamo prestamoActivo = prestamoDatos.buscarActivosPorCliente((Entidades.Cliente)Session["cliente"]);
+            if (prestamoActivo != null) {
+                modalBodyMaster.Text = $"Estimado cliente, le informamos que para solicitar un nuevo prestamo primero deberá saldar la deuda pendiente en el credito N°{prestamoActivo.IdPrestamo})";
+                ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "modal", "new bootstrap.Modal(document.getElementById('modalErrorMaster')).show();", true);
+                return;
+            }
+
+            Response.Redirect("~/Cliente/SolicitarPrestamo.aspx");
         }
     }
 }

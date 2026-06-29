@@ -7,20 +7,27 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GestionDePestamos.Cliente
-{
+namespace GestionDePestamos.Cliente {
 
 
-    public partial class MisPrestamos
-    {
+    public partial class MisPrestamos {
 
         /// <summary>
-        /// Control dgvMisPrestamos.
+        /// Control rptPrestamos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvMisPrestamos;
+        protected global::System.Web.UI.WebControls.Repeater rptPrestamos;
+
+        /// <summary>
+        /// Control pnlSinPrestamos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSinPrestamos;
     }
 }

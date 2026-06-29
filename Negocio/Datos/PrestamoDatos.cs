@@ -5,16 +5,13 @@ using System.Data.SqlClient;
 using Entidades;
 using Entidades.DTOs;
 
-namespace Negocio.Datos
-{
+namespace Negocio.Datos {
     // Clase de acceso a datos para la entidad Prestamo.
     // Por ahora solo tiene lectura. Los metodos de escritura se implementan en la Etapa 3 (core).
-    public class PrestamoDatos
-    {
+    public class PrestamoDatos {
         // Retorna todos los prestamos con producto, cliente, estado y usuario aprobador incluidos.
         // El usuario aprobador puede ser null si el prestamo todavia no fue evaluado.
-        public List<Prestamo> Listar()
-        {
+        public List<Prestamo> Listar() {
             List<Prestamo> lista = new List<Prestamo>();
 
             string sql = @"SELECT p.idPrestamo, p.monto, p.interesTotal,
@@ -38,8 +35,7 @@ namespace Negocio.Datos
 
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
 
-            foreach (DataRow fila in tabla.Rows)
-            {
+            foreach (DataRow fila in tabla.Rows) {
                 lista.Add(MapearFila(fila));
             }
 
@@ -47,8 +43,7 @@ namespace Negocio.Datos
         }
 
         // Busca y retorna un prestamo por su ID con todas sus relaciones incluidas. Si no existe, retorna null.
-        public Prestamo ObtenerPorId(int idPrestamo)
-        {
+        public Prestamo ObtenerPorId(int idPrestamo) {
             string sql = @"SELECT p.idPrestamo, p.monto, p.interesTotal,
                                   p.cantidadCuotas, p.cuotasRestantes,
                                   p.fechaAprobacion, p.fechaUltimaActualizacion,
@@ -77,8 +72,7 @@ namespace Negocio.Datos
 
         // Retorna todos los prestamos de un cliente especifico, ordenados por fecha de actualizacion.
         // Usado para mostrar al cliente solo sus propios prestamos.
-        public List<Prestamo> ListarPorCliente(int idCliente)
-        {
+        public List<Prestamo> ListarPorCliente(int idCliente) {
             List<Prestamo> lista = new List<Prestamo>();
 
             string sql = @"SELECT p.idPrestamo, p.monto, p.interesTotal,
@@ -104,8 +98,7 @@ namespace Negocio.Datos
             SqlParameter[] parametros = { new SqlParameter("@idCliente", idCliente) };
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);
 
-            foreach (DataRow fila in tabla.Rows)
-            {
+            foreach (DataRow fila in tabla.Rows) {
                 lista.Add(MapearFila(fila));
             }
 
@@ -156,51 +149,44 @@ namespace Negocio.Datos
 
         // Convierte una fila del DataTable en un objeto Prestamo con todas sus relaciones anidadas.
         // El usuario aprobador se carga solo si existe en la base de datos.
-        private Prestamo MapearFila(DataRow fila)
-        {
+        private Prestamo MapearFila(DataRow fila) {
             Usuario aprobador = null;
-            if (fila["idUsuarioAprobador"] != DBNull.Value)
-            {
-                aprobador = new Usuario
-                {
+            if (fila["idUsuarioAprobador"] != DBNull.Value) {
+                aprobador = new Usuario {
                     IdUsuario = (int)fila["idUsuarioAprobador"],
-                    Username  = fila["usernameAprobador"].ToString()
+                    Username = fila["usernameAprobador"].ToString()
                 };
             }
 
-            return new Prestamo
-            {
-                IdPrestamo               = (int)fila["idPrestamo"],
-                Monto                    = (decimal)fila["monto"],
-                InteresTotal             = (decimal)fila["interesTotal"],
-                CantidadCuotas          = (short)fila["cantidadCuotas"],
-                CuotasRestantes         = (short)fila["cuotasRestantes"],
-                FechaAprobacion         = fila["fechaAprobacion"] != DBNull.Value
+            return new Prestamo {
+                IdPrestamo = (int)fila["idPrestamo"],
+                Monto = (decimal)fila["monto"],
+                InteresTotal = (decimal)fila["interesTotal"],
+                CantidadCuotas = (short)fila["cantidadCuotas"],
+                CuotasRestantes = (short)fila["cuotasRestantes"],
+                FechaAprobacion = fila["fechaAprobacion"] != DBNull.Value
                                             ? (DateTime?)fila["fechaAprobacion"] : null,
                 FechaUltimaActualizacion = (DateTime)fila["fechaUltimaActualizacion"],
-                UsuarioAprobador        = aprobador,
-                ProductoPrestamo = new ProductoPrestamo
-                {
-                    IdProducto    = (int)fila["idProducto"],
-                    Nombre        = fila["nombreProducto"].ToString(),
-                    Descripcion   = fila["descripcionProducto"].ToString(),
-                    MontoMinimo   = (decimal)fila["montoMinimo"],
-                    MontoMaximo   = (decimal)fila["montoMaximo"],
+                UsuarioAprobador = aprobador,
+                ProductoPrestamo = new ProductoPrestamo {
+                    IdProducto = (int)fila["idProducto"],
+                    Nombre = fila["nombreProducto"].ToString(),
+                    Descripcion = fila["descripcionProducto"].ToString(),
+                    MontoMinimo = (decimal)fila["montoMinimo"],
+                    MontoMaximo = (decimal)fila["montoMaximo"],
                     CuotasMinimas = (int)fila["cuotasMinimas"],
                     CuotasMaximas = (int)fila["cuotasMaximas"]
                 },
-                Cliente = new Cliente
-                {
+                Cliente = new Cliente {
                     IdCliente = (int)fila["idCliente"],
-                    Username  = fila["usernameCliente"].ToString(),
-                    Email     = fila["email"].ToString(),
-                    Telefono  = fila["telefono"].ToString(),
+                    Username = fila["usernameCliente"].ToString(),
+                    Email = fila["email"].ToString(),
+                    Telefono = fila["telefono"].ToString(),
                     Direccion = fila["direccion"].ToString()
                 },
-                EstadoPrestamo = new EstadoPrestamo
-                {
+                EstadoPrestamo = new EstadoPrestamo {
                     IdEstadoPrestamo = (int)fila["idEstadoPrestamo"],
-                    Descripcion      = fila["descripcionEstado"].ToString()
+                    Descripcion = fila["descripcionEstado"].ToString()
                 }
             };
         }
@@ -219,7 +205,7 @@ namespace Negocio.Datos
                     new SqlParameter("@cantidadCuotas", prestamo.CantidadCuotas),
                     new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes)
                 };
-            
+
                 return AccesoDatos.EjecutarComandoConId(sql, parametros);
 
 
@@ -260,7 +246,7 @@ namespace Negocio.Datos
                 };
 
                 if (AccesoDatos.EjecutarComando(sql, parametros) != 0) return true;
-                    else return false;
+                else return false;
 
             } catch (Exception ex) {
 
@@ -268,5 +254,35 @@ namespace Negocio.Datos
             }
 
         }
+
+
+
+        public Prestamo buscarActivosPorCliente(Cliente cliente) {
+            string sql = @"SELECT p.idPrestamo, p.monto, p.interesTotal,
+                                  p.cantidadCuotas, p.cuotasRestantes,
+                                  p.fechaAprobacion, p.fechaUltimaActualizacion,
+                                  pr.idProducto, pr.nombre AS nombreProducto,
+                                  pr.descripcion AS descripcionProducto,
+                                  pr.montoMinimo, pr.montoMaximo,
+                                  pr.cuotasMinimas, pr.cuotasMaximas,
+                                  c.idCliente, c.username AS usernameCliente,
+                                  c.email, c.telefono, c.direccion,
+                                  ep.idEstadoPrestamo, ep.descripcion AS descripcionEstado,
+                                  p.idUsuarioAprobador,
+                                  u.username AS usernameAprobador
+                           FROM Prestamo p
+                           INNER JOIN ProductoPrestamo pr ON p.idProducto       = pr.idProducto
+                           INNER JOIN Cliente          c  ON p.idCliente        = c.idCliente
+                           INNER JOIN EstadoPrestamo   ep ON p.idEstadoPrestamo = ep.idEstadoPrestamo
+                           LEFT  JOIN Usuario          u  ON p.idUsuarioAprobador = u.idUsuario
+                           WHERE p.idCliente = @idCliente AND p.idEstadoPrestamo IN (1, 2, 4)"; // Busco por cliente y por estado "Solicitado", "Aprobado", o "En Curso" (4)
+
+            SqlParameter[] parametros = { new SqlParameter("@idCliente", cliente.IdCliente) };
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);
+
+            if (tabla.Rows.Count == 0) return null;
+            return MapearFila(tabla.Rows[0]);
+        }
+
     }
 }

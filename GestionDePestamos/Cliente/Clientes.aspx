@@ -1,20 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Cliente.Master" AutoEventWireup="true" CodeBehind="Clientes.aspx.cs" Inherits="GestionDePestamos.Cliente.Clientes" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="container my-5">
-        
+
         <div class="row mb-5">
             <div class="col-12">
-                <h2 class="fw-bold text-dark">¡Hola, <asp:Label ID="lblNombreCliente" runat="server" Text="(Nombre Cliente)"></asp:Label>! 👋</h2> 
+                <h2 class="fw-bold text-dark">¡Hola,
+                    <asp:Label ID="lblNombreCliente" runat="server" Text="(Nombre Cliente)"></asp:Label>! 👋</h2>
                 <p class="text-muted fs-5">Este es el resumen de tu cuenta al día de hoy.</p>
             </div>
         </div>
 
         <div class="row g-4 mb-5">
-            
+
             <div class="col-md-6">
                 <div class="card shadow-sm border-0 rounded-4 h-100 bg-primary text-white p-3">
                     <div class="card-body">
@@ -22,7 +24,10 @@
                         <h3 class="fw-bold mb-1">
                             <asp:Label ID="lblMontoProximo" runat="server" Text="$ 0,00"></asp:Label>
                         </h3>
-                        <p class="mb-0">Vence el: <asp:Label ID="lblFechaProximo" runat="server" Text="--/--/----"></asp:Label></p>
+                        <p class="mb-0">
+                            Vence el:
+                            <asp:Label ID="lblFechaProximo" runat="server" Text="--/--/----" CssClass="fw-bold"></asp:Label>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -34,7 +39,7 @@
                         <h3 class="fw-bold text-dark mb-1">
                             <asp:Label ID="lblCantidadPrestamos" runat="server" Text="0"></asp:Label>
                         </h3>
-                        <p class="text-muted mb-0">Al día con tus pagos.</p>
+                        <asp:Label ID="lblAlDia" runat="server" Text="Al día con tus pagos." CssClass="text-muted mb-0"></asp:Label>
                     </div>
                 </div>
             </div>
@@ -45,13 +50,15 @@
             <div class="col-12 mb-3">
                 <h4 class="fw-bold text-dark">¿Qué querés hacer hoy?</h4>
             </div>
-            
+
             <div class="col-md-6 mb-3">
-                <a href="SolicitarPrestamo.aspx" class="text-decoration-none">
+                <asp:LinkButton ID="btnSolicitarPrestamo" runat="server"
+                    CssClass="text-decoration-none"
+                    OnClick="btnSolicitarPrestamo_Click">
                     <div class="card shadow-sm border-0 rounded-4 bg-light text-center p-4 hover-zoom">
                         <h5 class="fw-bold text-primary m-0">+ Solicitar Nuevo Préstamo</h5>
                     </div>
-                </a>
+                </asp:LinkButton>
             </div>
 
             <div class="col-md-6 mb-3">
@@ -63,6 +70,25 @@
             </div>
         </div>
 
+    </div>
+
+
+    <%-- MODAL --%>
+    <div class="modal fade" id="modalError" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atención</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <asp:Label ID="modalBody" runat="server" Text="Label"></asp:Label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </asp:Content>
