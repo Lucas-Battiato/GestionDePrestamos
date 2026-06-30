@@ -91,7 +91,6 @@ namespace Servicios {
             HistorialEstadoPrestamo historialEnCurso = new HistorialEstadoPrestamo();
             historialEnCurso.Prestamo = prestamo;
             historialEnCurso.EstadoPrestamo = estadoEnCurso;
-            historialEnCurso.Usuario = usuario;
             historialEnCurso.Observaciones = "Cambio automatico a En Curso";
             historialDatos.agregar(historialEnCurso);
 
@@ -176,6 +175,42 @@ namespace Servicios {
             }
         }
 
+
+
+        // 1. Descontar una cuota a cuotasRestantes del prestamo en cuestion.
+        // 2. Si solo le queda la ultima cuota, la resto y paso el prestamo a estado Finalizado (5).
+        // 3. Si queda mas de 1, simplemente la resto y lo dejo en estado En Curso
+        public void descontarCuotaRestante(Prestamo prestamo) {
+            if (prestamo.CuotasRestantes == 1) {
+                prestamo.CuotasRestantes--;
+                finalizar(prestamo);
+
+            } else if (prestamo.CuotasRestantes > 1) {
+                prestamo.CuotasRestantes--;
+                prestamoDatos.cambiarEstado(prestamo);
+            }
+
+
+        }
+
+
+        private void finalizar(Prestamo prestamo) {
+
+            // Registro cambio de estado a finalizado
+            EstadoPrestamo estadoFinalizado = new EstadoPrestamo();
+            estadoFinalizado.IdEstadoPrestamo = 5; // Finalizado
+            prestamo.EstadoPrestamo = estadoFinalizado;
+            prestamoDatos.cambiarEstado(prestamo);
+
+            // Registro cambio de estado en el historial
+            HistorialEstadoPrestamo historialFinalizado = new HistorialEstadoPrestamo();
+            historialFinalizado.Prestamo = prestamo;
+            historialFinalizado.EstadoPrestamo = estadoFinalizado;
+            historialFinalizado.Observaciones = "Cambio automatico a finalizado por haberse abonado todas las cuotas";
+
+            HistorialEstadoPrestamoDatos historialDatos = new HistorialEstadoPrestamoDatos();
+            historialDatos.agregar(historialFinalizado);
+        }
 
     }
 }

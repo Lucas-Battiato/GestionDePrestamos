@@ -105,6 +105,17 @@ namespace GestionDePestamos.Empleados {
         }
 
 
+
+        protected void btnCancelarPrestamo_Click(object sender, EventArgs e) {
+
+        }
+
+
+        protected void btnConfirmarCancelacion_Click(object sender, EventArgs e) {
+
+        }
+
+
         private void cargarGrilla() {
             int idPrestamo = int.Parse(hfIdPrestamoActual.Value);
             List<Cuota> cuotas = cuotaDatos.ListarPorPrestamo(idPrestamo);
@@ -118,8 +129,8 @@ namespace GestionDePestamos.Empleados {
                     Monto = c.Monto,
                     FechaVencimiento = c.FechaVencimiento,
                     EstadoDescripcion = c.EstadoCuota.Descripcion,
-                    EstadoCssClass = c.EstadoCuota.IdEstadoCuota == 2 ? "bg-success" : (c.EstadoCuota.IdEstadoCuota == 3 ? "bg-danger" : "bg-secondary"),
-                    PuedeRegistrarPago = c.EstadoCuota.IdEstadoCuota != 2
+                    EstadoCssClass = c.EstadoCuota.IdEstadoCuota == 2 ? "bg-success" : (c.EstadoCuota.IdEstadoCuota == 3) ? "bg-danger" : (c.EstadoCuota.IdEstadoCuota == 4) ? "bg-dark" : "bg-secondary",
+                    PuedeRegistrarPago = c.EstadoCuota.IdEstadoCuota == 1 || c.EstadoCuota.IdEstadoCuota == 3
                 });
                 numeroCuota++;
             }
@@ -140,6 +151,11 @@ namespace GestionDePestamos.Empleados {
             lblMontoTotal.Text = $"${prestamo.Monto.ToString("N2", new CultureInfo("es-AR"))}";
             lblCuotasRestantes.Text = prestamo.CuotasRestantes.ToString();
             lblEstadoPrestamo.Text = prestamo.EstadoPrestamo.Descripcion;
+
+            if ( ((Usuario)Session["usuario"]).Rol.Descripcion == "Administrador" && prestamo.EstadoPrestamo.Descripcion == "En Curso") {
+                btnCancelarPrestamo.Visible = true;
+
+            } else btnCancelarPrestamo.Visible = false;
         }
     }
 }

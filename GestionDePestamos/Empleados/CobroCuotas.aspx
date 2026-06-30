@@ -42,30 +42,40 @@
 
             <div class="card shadow-sm border-0 rounded-4 mb-4">
                 <div class="card-header bg-primary text-white rounded-top-4 py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="m-0 fw-semibold">
-                        Préstamo #<asp:Label ID="lblIdPrestamo" runat="server" />
+                    <h5 class="m-0 fw-semibold">Préstamo #<asp:Label ID="lblIdPrestamo" runat="server" />
                     </h5>
-                    <span class="badge bg-light text-primary fw-semibold">
-                        <asp:Label ID="lblEstadoPrestamo" Text="En Curso" runat="server" />
-                    </span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-light text-primary fw-semibold">
+                            <asp:Label ID="lblEstadoPrestamo" Text="En Curso" runat="server" />
+                        </span>
+                        <asp:Button ID="btnCancelarPrestamo" runat="server"
+                            Text="Cancelar Préstamo"
+                            CssClass="btn btn-sm btn-danger fw-semibold"
+                            Visible="false"
+                            OnClick="btnCancelarPrestamo_Click" />
+                    </div>
                 </div>
                 <div class="card-body p-4">
                     <div class="row g-3">
                         <div class="col-md-3">
                             <div class="text-secondary small fw-semibold">Cliente</div>
-                            <div class="fw-bold"><asp:Label ID="lblCliente" runat="server" /></div>
+                            <div class="fw-bold">
+                                <asp:Label ID="lblCliente" runat="server" /></div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-secondary small fw-semibold">Producto</div>
-                            <div class="fw-bold"><asp:Label ID="lblProducto" runat="server" /></div>
+                            <div class="fw-bold">
+                                <asp:Label ID="lblProducto" runat="server" /></div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-secondary small fw-semibold">Monto Total</div>
-                            <div class="fw-bold"><asp:Label ID="lblMontoTotal" runat="server" /></div>
+                            <div class="fw-bold">
+                                <asp:Label ID="lblMontoTotal" runat="server" /></div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-secondary small fw-semibold">Cuotas Restantes</div>
-                            <div class="fw-bold"><asp:Label ID="lblCuotasRestantes" runat="server" /></div>
+                            <div class="fw-bold">
+                                <asp:Label ID="lblCuotasRestantes" runat="server" /></div>
                         </div>
                     </div>
                 </div>
@@ -134,8 +144,10 @@
                     <asp:HiddenField ID="hfIdCuota" runat="server" Value="0" />
 
                     <p class="text-secondary">
-                        Cuota N° <strong><asp:Label ID="lblModalNumeroCuota" runat="server" /></strong>
-                        por <strong><asp:Label ID="lblModalMontoCuota" runat="server" /></strong>
+                        Cuota N° <strong>
+                            <asp:Label ID="lblModalNumeroCuota" runat="server" /></strong>
+                        por <strong>
+                            <asp:Label ID="lblModalMontoCuota" runat="server" /></strong>
                     </p>
 
                     <div class="mb-2">
@@ -153,6 +165,42 @@
                     <asp:Button ID="btnConfirmarPago" runat="server" Text="Confirmar Pago"
                         CssClass="btn btn-success fw-bold"
                         OnClick="btnConfirmarPago_Click" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%-- MODAL CANCELAR PRESTAMO --%>
+    <div class="modal fade" id="modalCancelar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4">
+
+                <div class="modal-header bg-danger text-white rounded-top-4">
+                    <h5 class="modal-title fw-semibold">Cancelar Préstamo</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    <p class="text-secondary">Esta acción cancelará el préstamo y todas sus cuotas pendientes. <strong>No se puede deshacer.</strong></p>
+
+                    <%--<div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary">Motivo de cancelación <span class="text-danger">*</span></label>
+                        <asp:TextBox ID="txtMotivoCancelacion" runat="server"
+                            CssClass="form-control bg-light"
+                            TextMode="MultiLine" Rows="3"
+                            placeholder="Ingresá el motivo de la cancelación" />
+                    </div>--%>
+
+                    <asp:Label ID="lblErrorCancelacion" runat="server" Visible="false"
+                        CssClass="alert alert-danger d-block mt-3" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                    <asp:Button ID="btnConfirmarCancelacion" runat="server" Text="Confirmar Cancelación"
+                        CssClass="btn btn-danger fw-bold"
+                        OnClick="btnConfirmarCancelacion_Click" />
                 </div>
 
             </div>

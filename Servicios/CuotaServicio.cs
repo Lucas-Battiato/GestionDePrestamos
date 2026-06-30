@@ -21,25 +21,16 @@ namespace Servicios {
         }
 
 
+        // Pagar cuota y descontar cuota restante por medio de PrestamoServicio
         public void pagarCuota(Cuota cuota, MetodoPago metodoPago) {
-            // Pagar cuota
             cuotaDatos.registrarPago(cuota, metodoPago);
 
-            // Descontar una cuota a cuotasRestantes del prestamo en cuestion.
-            // Si solo le queda la ultima cuota, la resto y paso el prestamo a estado Finalizado (5).
-            // Si queda mas de 1, simplemente la resto y lo dejo en estado En Curso
+            
             PrestamoDatos prestamoDatos = new PrestamoDatos();
             Prestamo prestamo = prestamoDatos.ObtenerPorId(cuota.Prestamo.IdPrestamo);
 
-            if (prestamo.CuotasRestantes == 1) {
-                prestamo.CuotasRestantes--;
-                prestamo.EstadoPrestamo = new EstadoPrestamo { IdEstadoPrestamo = 5, Descripcion = "Finalizado" };
-
-            } else if (prestamo.CuotasRestantes > 1) {
-                prestamo.CuotasRestantes--;
-            }
-
-            prestamoDatos.cambiarEstado(prestamo);
+            PrestamoServicio prestamoServicio = new PrestamoServicio();
+            prestamoServicio.descontarCuotaRestante(prestamo);
 
         }
     }

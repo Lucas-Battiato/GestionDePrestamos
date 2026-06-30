@@ -20,6 +20,7 @@ GO
 INSERT INTO [EstadoCuota] ([descripcion]) VALUES ('Pendiente');
 INSERT INTO [EstadoCuota] ([descripcion]) VALUES ('Pagada');
 INSERT INTO [EstadoCuota] ([descripcion]) VALUES ('Vencida');
+INSERT INTO [EstadoCuota] ([descripcion]) VALUES ('Cancelada');
 GO
 
 
