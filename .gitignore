@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# No subo los recibos
+GestionDePestamos/ArchivosSistema/*
+!GestionDePestamos/ArchivosSistema/.gitkeep
