@@ -33,5 +33,10 @@ namespace Servicios {
             prestamoServicio.descontarCuotaRestante(prestamo);
 
         }
+
+
+        public void cancelarCuotasPendientesPorPrestamo(Prestamo prestamo) {
+            cuotaDatos.cancelarCuotasPendientesPorPrestamo(prestamo);
+        }
     }
 }

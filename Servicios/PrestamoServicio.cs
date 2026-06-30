@@ -212,5 +212,25 @@ namespace Servicios {
             historialDatos.agregar(historialFinalizado);
         }
 
+
+
+        public void cancelar(Prestamo prestamo, Usuario usuario, string observacion) {
+            // Registro cambio de estado a cancelado
+            EstadoPrestamo estadoCancelado = new EstadoPrestamo();
+            estadoCancelado.IdEstadoPrestamo = 6; // Cancelado
+            prestamo.EstadoPrestamo = estadoCancelado;
+            prestamoDatos.cambiarEstado(prestamo);
+
+            // Registro cambio de estado en el historial
+            HistorialEstadoPrestamo historialCancelado = new HistorialEstadoPrestamo();
+            historialCancelado.Prestamo = prestamo;
+            historialCancelado.EstadoPrestamo = estadoCancelado;
+            historialCancelado.Usuario = usuario;
+            historialCancelado.Observaciones = observacion;
+
+            HistorialEstadoPrestamoDatos historialDatos = new HistorialEstadoPrestamoDatos();
+            historialDatos.agregar(historialCancelado);
+        }
+
     }
 }

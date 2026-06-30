@@ -107,12 +107,25 @@ namespace GestionDePestamos.Empleados {
 
 
         protected void btnCancelarPrestamo_Click(object sender, EventArgs e) {
-
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "modal", "new bootstrap.Modal(document.getElementById('modalCancelar')).show();", true);
         }
 
 
         protected void btnConfirmarCancelacion_Click(object sender, EventArgs e) {
+            if (txtmotivocancelacion.Text != "") {
+                Prestamo prestamo = prestamoDatos.ObtenerPorId(int.Parse(hfIdPrestamoActual.Value));
+                Usuario usuario = (Usuario)Session["usuario"];
+                string observacion = txtmotivocancelacion.Text;
 
+                PrestamoServicio prestamoServicio = new PrestamoServicio();
+                prestamoServicio.cancelar(prestamo, usuario, observacion);
+
+                CuotaServicio cuotaServicio = new CuotaServicio();
+                cuotaServicio.cancelarCuotasPendientesPorPrestamo(prestamo);
+
+                cargarDatosPrestamo();
+                cargarGrilla();
+            }
         }
 
 

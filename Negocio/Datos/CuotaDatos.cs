@@ -177,5 +177,26 @@ namespace Negocio.Datos
                 throw ex;
             }
         }
+
+
+        // Cancelo todas las cuotas de un prestamo y devuelvo cuantas fueron canceladas.
+        public int cancelarCuotasPendientesPorPrestamo(Prestamo prestamo) {
+            string sql = @"UPDATE CUOTA
+                                SET idEstadoCuota = 4
+                            WHERE idPrestamo = @idPrestamo
+                                AND idEstadoCuota IN (1, 3)";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@idPrestamo", prestamo.IdPrestamo)
+            };
+
+            try {
+                return AccesoDatos.EjecutarComando(sql, parametros);
+
+            } catch (Exception ex) {
+
+                throw ex;
+            }
+        }
     }
 }

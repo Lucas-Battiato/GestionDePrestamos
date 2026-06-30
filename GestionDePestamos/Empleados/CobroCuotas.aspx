@@ -184,13 +184,13 @@
                 <div class="modal-body p-4">
                     <p class="text-secondary">Esta acción cancelará el préstamo y todas sus cuotas pendientes. <strong>No se puede deshacer.</strong></p>
 
-                    <%--<div class="mb-2">
-                        <label class="form-label fw-semibold text-secondary">Motivo de cancelación <span class="text-danger">*</span></label>
-                        <asp:TextBox ID="txtMotivoCancelacion" runat="server"
-                            CssClass="form-control bg-light"
-                            TextMode="MultiLine" Rows="3"
-                            placeholder="Ingresá el motivo de la cancelación" />
-                    </div>--%>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary">Motivo de cancelación: <span class="text-danger">*</span></label>
+                        <asp:textbox id="txtmotivocancelacion" runat="server"
+                            cssclass="form-control bg-light"
+                            textmode="multiline" rows="3"
+                            placeholder="Ingresá el motivo de la cancelación..." />
+                    </div>
 
                     <asp:Label ID="lblErrorCancelacion" runat="server" Visible="false"
                         CssClass="alert alert-danger d-block mt-3" />
