@@ -35,7 +35,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm border-0 rounded-4 h-100 bg-white p-3 border-start border-4 border-success">
                     <div class="card-body text-dark">
-                        <h5 class="card-title fw-semibold text-secondary mb-3">Préstamos Activos</h5>
+                        <h5 class="card-title fw-semibold text-secondary mb-3">Préstamos Activos o Solicitados</h5>
                         <h3 class="fw-bold text-dark mb-1">
                             <asp:Label ID="lblCantidadPrestamos" runat="server" Text="0"></asp:Label>
                         </h3>

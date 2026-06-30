@@ -115,5 +115,30 @@ namespace Negocio.Datos
                 }
             };
         }
+
+
+
+        // Activo un usuario por su Id
+        public bool activar(int idUsuario) {
+            string sql = @"UPDATE Usuario SET activo = 1 WHERE idUsuario = @idUsuario";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@idUsuario", idUsuario)
+            };
+
+            return AccesoDatos.EjecutarComando(sql, parametros) > 0;
+        }
+
+
+        // Desactivo un usuario por su Id
+        public bool desactivar(int idUsuario) {
+            string sql = @"UPDATE Usuario SET activo = 0 WHERE idUsuario = @idUsuario";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@idUsuario", idUsuario)
+            };
+
+            return AccesoDatos.EjecutarComando(sql, parametros) > 0;
+        }
     }
 }

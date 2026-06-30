@@ -11,5 +11,7 @@ namespace Entidades.DTOs {
         public string Rol { get; set; }
         public string Estado { get; set; }
         public string EstadoCssClass { get; set; }
+        public string TextoBotonToggle { get; set; }
+        public string TogglecCssClass { get; set; }
     }
 }

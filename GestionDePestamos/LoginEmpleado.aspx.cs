@@ -44,8 +44,18 @@ namespace GestionDePestamos {
                 Usuario usuarioValidado = usuarioDatos.BuscarPorUsername(usuario.Username);
 
                 if (usuarioValidado != null && usuarioValidado.Password.Equals(usuario.Password)) {
-                    Session.Add("usuario", usuarioValidado);
-                    Response.Redirect("~/Empleados/Empleados.aspx");
+
+                    if (usuarioValidado.Activo) {
+                        Session.Add("usuario", usuarioValidado);
+                        Response.Redirect("~/Empleados/Empleados.aspx");
+
+                    } else {
+                        lblModalBody.Text = "Su usuario se encuentra inactivo." +
+                            "\nPor favor, contacte a un administrador.";
+
+                        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "modal", "new bootstrap.Modal(document.getElementById('modal')).show();", true);
+                    }
+
 
                 } else {
                     lblErrorLogin.Text = "Usuario o contraseña incorrecta. Intente de nuevo";

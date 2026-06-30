@@ -49,6 +49,24 @@
 
         </div>
 
+
+        <div class="modal fade" id="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header bg-danger text-white rounded-top-4">
+                        <h5 class="modal-title fw-semibold">Acceso denegado</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <asp:Label ID="lblModalBody" runat="server" Text="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
 </body>
 </html>
