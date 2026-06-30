@@ -51,10 +51,15 @@ namespace GestionDePestamos.Empleados {
 
             string ruta = Server.MapPath($"~/ArchivosSistema/Recibos/recibo_Prestamo{idPrestamo}.pdf");
 
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", $"attachment; filename=recibo_Prestamo{idPrestamo}.pdf");
-            Response.TransmitFile(ruta);
-            Response.End();
+            try {
+                Response.ContentType = "application/pdf";
+                Response.AppendHeader("Content-Disposition", $"attachment; filename=recibo_Prestamo{idPrestamo}.pdf");
+                Response.TransmitFile(ruta);
+                Response.End();
+
+            } catch (Exception) {
+
+            }
         }
 
 
