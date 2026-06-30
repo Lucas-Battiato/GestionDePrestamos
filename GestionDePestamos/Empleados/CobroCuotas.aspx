@@ -71,6 +71,9 @@
                 </div>
             </div>
 
+            <asp:HiddenField ID="hfIdPrestamoActual" runat="server" Value="0" />
+
+
             <%-- GRILLA DE CUOTAS --%>
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-body p-4 table-responsive">

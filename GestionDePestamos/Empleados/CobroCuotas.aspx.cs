@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Entidades.DTOs;
 using Negocio.Datos;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,6 +14,9 @@ namespace GestionDePestamos.Empleados {
         Prestamo prestamo = new Prestamo();
         List<Prestamo> listaPrestamos = new List<Prestamo>();
         PrestamoDatos prestamoDatos = new PrestamoDatos();
+
+        CuotaDatos cuotaDatos = new CuotaDatos();
+        CuotaServicio cuotaServicio = new CuotaServicio();
 
         protected void Page_Load(object sender, EventArgs e) {
             if ((Usuario)Session["usuario"] == null) {
@@ -51,36 +55,14 @@ namespace GestionDePestamos.Empleados {
             // Si encontre un prestamo con ese ID o nombre de usuario, habilito el panel de prestamo. Sino lo informo con el lblSinResultado
             // Cargo las cuotas del prestamo encontrado
             if (listaPrestamos.Count != 0 && listaPrestamos[0] != null) {
-                lblIdPrestamo.Text = listaPrestamos[0].IdPrestamo.ToString();
-                lblCliente.Text = listaPrestamos[0].Cliente.Username;
-                lblProducto.Text = listaPrestamos[0].ProductoPrestamo.Nombre;
-                lblMontoTotal.Text = $"${listaPrestamos[0].Monto.ToString("N2", new CultureInfo("es-AR"))}";
-                lblCuotasRestantes.Text = listaPrestamos[0].CuotasRestantes.ToString();
 
                 lblSinResultados.Visible = false;
                 pnlPrestamo.Visible = true;
 
-                
-                CuotaDatos cuotaDatos = new CuotaDatos();
-                List<Cuota> cuotas = cuotaDatos.ListarPorPrestamo(idPrestamo);
-                List<CuotaDTO> cuotasVista = new List<CuotaDTO>();
+                hfIdPrestamoActual.Value = listaPrestamos[0].IdPrestamo.ToString();
 
-                int numeroCuota = 1;
-                foreach (Cuota cuota in cuotas) {
-                    cuotasVista.Add(new CuotaDTO {
-                        IdCuota = cuota.IdCuota,
-                        NumeroCuota = numeroCuota,
-                        Monto = cuota.Monto,
-                        FechaVencimiento = cuota.FechaVencimiento,
-                        EstadoDescripcion = cuota.EstadoCuota.Descripcion,
-                        EstadoCssClass = cuota.EstadoCuota.IdEstadoCuota == 2 ? "bg-success" : (cuota.EstadoCuota.IdEstadoCuota == 3 ? "bg-danger" : "bg-secondary"),
-                        PuedeRegistrarPago = cuota.EstadoCuota.IdEstadoCuota != 2 // no pagada
-                    });
-                    numeroCuota++;
-                }
-
-                dgvCuotas.DataSource = cuotasVista;
-                dgvCuotas.DataBind();
+                cargarDatosPrestamo();
+                cargarGrilla();
 
             } else {
                 pnlPrestamo.Visible = false;
@@ -90,9 +72,74 @@ namespace GestionDePestamos.Empleados {
         }
 
         protected void btnRegistrarPago_Click(object sender, EventArgs e) {
+            LinkButton button = (LinkButton)sender;
+            GridViewRow fila = (GridViewRow)button.NamingContainer;
+            int id = int.Parse(dgvCuotas.DataKeys[fila.RowIndex].Value.ToString()); //Tomo el ID de la cuota seleccionada
+
+            Cuota cuota = new Cuota();
+            cuota = cuotaDatos.ObtenerPorId(id);
+
+            hfIdCuota.Value = id.ToString();
+
+            lblModalNumeroCuota.Text = (fila.RowIndex + 1).ToString();
+            lblModalMontoCuota.Text = cuota.Monto.ToString("N2", new CultureInfo("es-AR"));
+
+            MetodoPagoDatos metodoPagoDatos = new MetodoPagoDatos();
+            ddlMetodoPago.DataSource = metodoPagoDatos.Listar();
+            ddlMetodoPago.DataValueField = "IdMetodoPago";
+            ddlMetodoPago.DataTextField = "Descripcion";
+            ddlMetodoPago.DataBind();
+
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "modal", "new bootstrap.Modal(document.getElementById('modalPago')).show();", true);
         }
 
         protected void btnConfirmarPago_Click(object sender, EventArgs e) {
+            MetodoPagoDatos metodoPagoDatos = new MetodoPagoDatos();
+            MetodoPago metodoPagoSeleccionado = metodoPagoDatos.ObtenerPorId(int.Parse(ddlMetodoPago.SelectedValue));
+
+            Cuota cuota = cuotaDatos.ObtenerPorId(int.Parse(hfIdCuota.Value));
+
+            cuotaServicio.pagarCuota(cuota, metodoPagoSeleccionado); // Al pagar la cuota, el metodo tambien valida si fue la ultima y en ese caso pasa el prestamo a finalizado.
+            cargarDatosPrestamo();
+            cargarGrilla();
+        }
+
+
+        private void cargarGrilla() {
+            int idPrestamo = int.Parse(hfIdPrestamoActual.Value);
+            List<Cuota> cuotas = cuotaDatos.ListarPorPrestamo(idPrestamo);
+            List<CuotaDTO> cuotasVista = new List<CuotaDTO>();
+
+            int numeroCuota = 1;
+            foreach (Cuota c in cuotas) {
+                cuotasVista.Add(new CuotaDTO {
+                    IdCuota = c.IdCuota,
+                    NumeroCuota = numeroCuota,
+                    Monto = c.Monto,
+                    FechaVencimiento = c.FechaVencimiento,
+                    EstadoDescripcion = c.EstadoCuota.Descripcion,
+                    EstadoCssClass = c.EstadoCuota.IdEstadoCuota == 2 ? "bg-success" : (c.EstadoCuota.IdEstadoCuota == 3 ? "bg-danger" : "bg-secondary"),
+                    PuedeRegistrarPago = c.EstadoCuota.IdEstadoCuota != 2
+                });
+                numeroCuota++;
+            }
+
+            dgvCuotas.DataSource = cuotasVista;
+            dgvCuotas.DataBind();
+        }
+
+
+
+        private void cargarDatosPrestamo() {
+            int idPrestamo = int.Parse(hfIdPrestamoActual.Value);
+            Prestamo prestamo = prestamoDatos.ObtenerPorId(idPrestamo);
+
+            lblIdPrestamo.Text = prestamo.IdPrestamo.ToString();
+            lblCliente.Text = prestamo.Cliente.Username;
+            lblProducto.Text = prestamo.ProductoPrestamo.Nombre;
+            lblMontoTotal.Text = $"${prestamo.Monto.ToString("N2", new CultureInfo("es-AR"))}";
+            lblCuotasRestantes.Text = prestamo.CuotasRestantes.ToString();
+            lblEstadoPrestamo.Text = prestamo.EstadoPrestamo.Descripcion;
         }
     }
 }

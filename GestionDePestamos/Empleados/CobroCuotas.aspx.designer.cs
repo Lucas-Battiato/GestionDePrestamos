@@ -103,6 +103,15 @@ namespace GestionDePestamos.Empleados {
         protected global::System.Web.UI.WebControls.Label lblCuotasRestantes;
 
         /// <summary>
+        /// Control hfIdPrestamoActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfIdPrestamoActual;
+
+        /// <summary>
         /// Control dgvCuotas.
         /// </summary>
         /// <remarks>
