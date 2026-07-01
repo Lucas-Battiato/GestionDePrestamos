@@ -240,7 +240,7 @@ namespace Negocio.Datos {
                     new SqlParameter("@interesTotal", prestamo.InteresTotal),
                     new SqlParameter("@cantidadCuotas", prestamo.CantidadCuotas),
                     new SqlParameter("@cuotasRestantes", prestamo.CuotasRestantes),
-                    new SqlParameter("@fechaAprobacion", prestamo.FechaAprobacion),
+                    new SqlParameter("@fechaAprobacion", (object)prestamo.FechaAprobacion ?? DBNull.Value),
                     new SqlParameter("@idEstadoPrestamo", prestamo.EstadoPrestamo.IdEstadoPrestamo),
                     new SqlParameter("@idPrestamo", prestamo.IdPrestamo)
                 };
@@ -275,7 +275,35 @@ namespace Negocio.Datos {
                            INNER JOIN Cliente          c  ON p.idCliente        = c.idCliente
                            INNER JOIN EstadoPrestamo   ep ON p.idEstadoPrestamo = ep.idEstadoPrestamo
                            LEFT  JOIN Usuario          u  ON p.idUsuarioAprobador = u.idUsuario
-                           WHERE p.idCliente = @idCliente AND p.idEstadoPrestamo IN (1, 2, 4)"; // Busco por cliente y por estado "Solicitado", "Aprobado", o "En Curso" (4)
+                           WHERE p.idCliente = @idCliente AND p.idEstadoPrestamo IN (1, 2, 4)"; // Busco por cliente y por estado "Solicitado" (1), "Aprobado" (2), o "En Curso" (4)
+
+            SqlParameter[] parametros = { new SqlParameter("@idCliente", cliente.IdCliente) };
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);
+
+            if (tabla.Rows.Count == 0) return null;
+            return MapearFila(tabla.Rows[0]);
+        }
+
+
+        public Prestamo buscarEnCursoPorCliente(Cliente cliente) {
+            string sql = @"SELECT p.idPrestamo, p.monto, p.interesTotal,
+                                  p.cantidadCuotas, p.cuotasRestantes,
+                                  p.fechaAprobacion, p.fechaUltimaActualizacion,
+                                  pr.idProducto, pr.nombre AS nombreProducto,
+                                  pr.descripcion AS descripcionProducto,
+                                  pr.montoMinimo, pr.montoMaximo,
+                                  pr.cuotasMinimas, pr.cuotasMaximas,
+                                  c.idCliente, c.username AS usernameCliente,
+                                  c.email, c.telefono, c.direccion,
+                                  ep.idEstadoPrestamo, ep.descripcion AS descripcionEstado,
+                                  p.idUsuarioAprobador,
+                                  u.username AS usernameAprobador
+                           FROM Prestamo p
+                           INNER JOIN ProductoPrestamo pr ON p.idProducto       = pr.idProducto
+                           INNER JOIN Cliente          c  ON p.idCliente        = c.idCliente
+                           INNER JOIN EstadoPrestamo   ep ON p.idEstadoPrestamo = ep.idEstadoPrestamo
+                           LEFT  JOIN Usuario          u  ON p.idUsuarioAprobador = u.idUsuario
+                           WHERE p.idCliente = @idCliente AND p.idEstadoPrestamo = 4"; // Busco por cliente y por estado "En Curso" (4)
 
             SqlParameter[] parametros = { new SqlParameter("@idCliente", cliente.IdCliente) };
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql, parametros);

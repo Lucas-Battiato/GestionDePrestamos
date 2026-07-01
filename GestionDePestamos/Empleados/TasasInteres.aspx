@@ -59,7 +59,7 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField>
+                        <%--<asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnEditar" runat="server"
                                     CssClass="btn btn-sm btn-outline-primary me-1"
@@ -68,7 +68,7 @@
                                     CssClass="btn btn-sm btn-outline-danger"
                                     OnClick="btnEliminar_Click">Eliminar</asp:LinkButton>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                     </Columns>
                     <EmptyDataTemplate>
                         <div class="alert alert-info text-center m-0">No hay tasas cargadas para este producto.</div>

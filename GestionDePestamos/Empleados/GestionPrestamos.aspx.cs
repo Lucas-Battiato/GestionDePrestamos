@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Entidades;
 using Entidades.DTOs;
+using Microsoft.Win32;
 using Negocio.Datos;
 using Servicios;
 using System;
@@ -30,15 +31,31 @@ namespace GestionDePestamos.Empleados {
             LinkButton boton = (LinkButton)sender;
             GridViewRow fila = (GridViewRow)boton.NamingContainer;
             hfIdPrestamo.Value = dgvSolicitudes.DataKeys[fila.RowIndex].Value.ToString(); //Tomo el ID del prestamo
+            hfAccion.Value = "Aprobacion";
         }
 
         protected void btnRechazar_Click(object sender, EventArgs e) {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "modal", "new bootstrap.Modal(document.getElementById('modalDecision')).show();", true);
+
+            LinkButton boton = (LinkButton)sender;
+            GridViewRow fila = (GridViewRow)boton.NamingContainer;
+            hfIdPrestamo.Value = dgvSolicitudes.DataKeys[fila.RowIndex].Value.ToString(); //Tomo el ID del prestamo
+            hfAccion.Value = "Rechazo";
         }
 
         protected void btnConfirmarDecision_Click(object sender, EventArgs e) {
             PrestamoServicio prestamoServicio = new PrestamoServicio();
 
-            prestamoServicio.aprobar(int.Parse(hfIdPrestamo.Value), (Usuario)Session["usuario"], txtObservacion.Text);
+            switch (hfAccion.Value) {
+                case "Aprobacion":
+                    prestamoServicio.aprobar(int.Parse(hfIdPrestamo.Value), (Usuario)Session["usuario"], txtObservacion.Text);
+                    break;
+
+                case "Rechazo":
+                    prestamoServicio.rechazar(int.Parse(hfIdPrestamo.Value), (Usuario)Session["usuario"], txtObservacion.Text);
+                    break;
+            }
+
 
             cargarGrilla();
         }

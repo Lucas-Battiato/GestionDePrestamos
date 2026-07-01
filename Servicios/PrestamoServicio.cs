@@ -130,12 +130,14 @@ namespace Servicios {
 
 
         // Metodo para rechazar un prestamo. Registra cambios en el historial, envia mail de rechazo.
-        public void rechazar(Prestamo prestamo, Usuario usuario, string observacion) {
+        public void rechazar(int idPrestamo, Usuario usuario, string observacion) {
             /*
                 - Recibo el prestamo
                 - Registro cambio de estado prestamo en historial (rechazado)
                 - Envio mail de rechazo
             */
+
+            Prestamo prestamo = prestamoDatos.ObtenerPorId(idPrestamo);
 
             prestamo.UsuarioAprobador = usuario;
             prestamo.CuotasRestantes = 0;

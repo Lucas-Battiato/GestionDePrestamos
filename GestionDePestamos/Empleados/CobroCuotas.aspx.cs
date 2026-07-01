@@ -33,12 +33,13 @@ namespace GestionDePestamos.Empleados {
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e) {
+            Prestamo prestamo = null;
             listaPrestamos.Clear();
 
             // Chequeo si es un ID de prestamo
             if (int.TryParse(txtBusqueda.Text, out int idPrestamo)) {
-                listaPrestamos.Add(prestamoDatos.ObtenerPorId(idPrestamo));
-
+                //listaPrestamos.Add(prestamoDatos.ObtenerPorId(idPrestamo));
+                prestamo = prestamoDatos.ObtenerPorId(idPrestamo);
 
                 // Si no es un ID de prestamo, entonces es un nombre de usuario
             } else {
@@ -47,19 +48,20 @@ namespace GestionDePestamos.Empleados {
                     Entidades.Cliente cliente = clienteDatos.ObtenerPorUsername(txtBusqueda.Text);
 
                     if (cliente != null) {
-                        listaPrestamos = prestamoDatos.ListarPorCliente(cliente.IdCliente);
+                        //listaPrestamos = prestamoDatos.ListarPorCliente(cliente.IdCliente);
+                        prestamo = prestamoDatos.buscarEnCursoPorCliente(cliente);
                     }
                 }
             }
 
             // Si encontre un prestamo con ese ID o nombre de usuario, habilito el panel de prestamo. Sino lo informo con el lblSinResultado
             // Cargo las cuotas del prestamo encontrado
-            if (listaPrestamos.Count != 0 && listaPrestamos[0] != null) {
+            if (prestamo != null) {
 
                 lblSinResultados.Visible = false;
                 pnlPrestamo.Visible = true;
 
-                hfIdPrestamoActual.Value = listaPrestamos[0].IdPrestamo.ToString();
+                hfIdPrestamoActual.Value = prestamo.IdPrestamo.ToString();
 
                 cargarDatosPrestamo();
                 cargarGrilla();
