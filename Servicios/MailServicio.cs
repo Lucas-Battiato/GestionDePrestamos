@@ -1,53 +1,54 @@
-﻿using Entidades;
-using Negocio.Datos;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net;
-using System.Net.Mail;
-using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
+using Entidades;
+using Negocio.Datos;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Servicios {
     static class MailServicio {
-        public static void enviarMailPrestamoAprobado(Prestamo prestamo) {
-            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525) {
-                Credentials = new NetworkCredential("fb35bc4e77c7b5", "41df1bd737b529"),
-                EnableSsl = true
-            } ;
+        public static void enviarMailPrestamoAprobadoRechazado(Prestamo prestamo, string estadoPrestamo) {
+            var apiKey = System.Configuration.ConfigurationManager.AppSettings["SENDGRID_API_KEY"];
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("progra7a@gmail.com", "PrestamoYa");
+            var to = new EmailAddress(prestamo.Cliente.Email, prestamo.Cliente.Username);
+            var subject = $"Tu préstamo fue ${estadoPrestamo}!";
+            var htmlContent = $"<p>Hola <strong>{prestamo.Cliente.Username}</strong>, tu préstamo por <strong>${prestamo.Monto:N2}</strong> fue ${estadoPrestamo}!</p>";
 
-            CuotaDatos cuotaDatos = new CuotaDatos();
-            List<Cuota> cuotas = cuotaDatos.ListarPorPrestamo(prestamo.IdPrestamo);
-            string remitente = "progra7a@gmail.com";
-            string destinatario = prestamo.Cliente.Email;
-            string asunto = "Prestamo aprobado!";
-            string cuerpo = $"Estimado {prestamo.Cliente.Username}, desde PrestamoYa le informamos que su prestamo por $${prestamo.Monto} ha sido aprobado!" +
-                $"\n\nA continuación le brindamos un detalle de su plan de cuotas:";
-            for (int i = 0; i < cuotas.Count; i++) {
-                cuerpo += $"\nCuota N°{i+1}: ${cuotas[i].Monto} - Vto: {cuotas[i].FechaVencimiento.ToString()}";
+            if (estadoPrestamo == "aprobado") {
+                CuotaDatos cuotaDatos = new CuotaDatos();
+                List<Cuota> listaCuotas = cuotaDatos.ListarPorPrestamo(prestamo.IdPrestamo);
+
+                htmlContent += "<br><br>A continuación te brindamos el plan de cuotas definido:<br><br>";
+                htmlContent += "<table style='border-collapse: collapse; width: 400px;'>";
+                htmlContent += "<tr style='background-color: #f2f2f2;'>" +
+                        "<th style='border: 1px solid #ddd; padding: 10px 20px; text-align: left;'>N° Cuota</th>" +
+                        "<th style='border: 1px solid #ddd; padding: 10px 20px; text-align: left;'>Monto</th>" +
+                        "<th style='border: 1px solid #ddd; padding: 10px 20px; text-align: left;'>Vencimiento</th>" +
+                        "</tr>";
+
+                int numeroCuota = 1;
+                listaCuotas.ForEach(c => {
+                    htmlContent += $"<tr>" +
+                            $"<td style='border: 1px solid #ddd; padding: 10px 20px; text-align: left;'>{numeroCuota}</td>" +
+                            $"<td style='border: 1px solid #ddd; padding: 10px 20px; text-align: left;'>${c.Monto:N2}</td>" +
+                            $"<td style='border: 1px solid #ddd; padding: 10px 20px; text-align: left;'>{c.FechaVencimiento:dd/MM/yyyy}</td>" +
+                            $"</tr>";
+                    numeroCuota++;
+                });
+
+                htmlContent += "</table><br><br>Cuando quieras abonar, podés acercarte a cualquiera de nuestras sucursales. ¡Te esperamos!";
+
+            } else if (estadoPrestamo == "rechazado") {
+                htmlContent += "<br><br>Lamentablemente tu solicitud no pudo ser aprobada en esta ocasión.";
+                htmlContent += "<br>Por dudas o inquietudes, por favor acercate a cualquiera de nuestras sucursales. ¡Te esperamos!";
             }
 
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlContent);
+            client.SendEmailAsync(msg).ConfigureAwait(false).GetAwaiter().GetResult();
 
-            client.Send(remitente, destinatario, asunto, cuerpo);
-        }
-
-
-        public static void enviarMailPrestamoRechazado(Prestamo prestamo, string observacion) {
-            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525) {
-                Credentials = new NetworkCredential("fb35bc4e77c7b5", "41df1bd737b529"),
-                EnableSsl = true
-            };
-
-            
-            string remitente = "progra7a@gmail.com";
-            string destinatario = prestamo.Cliente.Email;
-            string asunto = "Prestamo rechazado!";
-            string cuerpo = $"Estimado {prestamo.Cliente.Username}, desde PrestamoYa lamentamos informarle que su prestamo por $${prestamo.Monto} ha sido rechazado con la siguiente observación" +
-                            $"\n'{observacion}'";
-
-            client.Send(remitente, destinatario, asunto, cuerpo);
         }
     }
 }

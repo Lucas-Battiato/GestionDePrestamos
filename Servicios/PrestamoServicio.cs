@@ -124,7 +124,7 @@ namespace Servicios {
             }
 
             // Envio mail
-            //MailServicio.enviarMailPrestamoAprobado(prestamo);
+            MailServicio.enviarMailPrestamoAprobadoRechazado(prestamo, "aprobado");
 
         }
 
@@ -159,7 +159,7 @@ namespace Servicios {
             historialDatos.agregar(historialRechazado);
 
             // Envio mail
-            //MailServicio.enviarMailPrestamoRechazado(prestamo, observacion);
+            MailServicio.enviarMailPrestamoAprobadoRechazado(prestamo, "rechazado");
 
         }
 

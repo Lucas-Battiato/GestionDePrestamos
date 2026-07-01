@@ -108,7 +108,7 @@ GO
 -- ===================== --
 -- CLIENTE TEST --
 -- ===================== --
-INSERT INTO Cliente VALUES('testCliente', 'test123', 'progra7a@gmail.com', '1111-1111', 'Calle Falsa 123')
+INSERT INTO Cliente VALUES('testCliente', 'test123', 'testcliente.utn@gmail.com', '1111-1111', 'Calle Falsa 123')
 
 
 -- ===================== --
