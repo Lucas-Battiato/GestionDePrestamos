@@ -365,3 +365,6 @@ FodyWeavers.xsd
 # No subo los recibos
 GestionDePestamos/ArchivosSistema/*
 !GestionDePestamos/ArchivosSistema/.gitkeep
+
+# No subo el webConfig por api_key de sendgrid
+GestionDePestamos/Web.config
