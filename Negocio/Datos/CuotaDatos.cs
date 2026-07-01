@@ -198,5 +198,31 @@ namespace Negocio.Datos
                 throw ex;
             }
         }
+
+
+
+        public int contarVencidas() {
+            string sql = @"SELECT COUNT(idCuota)
+                           FROM CUOTA
+                           WHERE idEstadoCuota = 3"; // Busco por estado "Vencidas" (3)
+
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
+
+            return (int)tabla.Rows[0][0];
+
+        }
+
+
+
+        public int contarPagadas() {
+            string sql = @"SELECT COUNT(idCuota)
+                           FROM CUOTA
+                           WHERE idEstadoCuota = 2"; // Busco por estado "Pagada" (2)
+
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
+
+            return (int)tabla.Rows[0][0];
+
+        }
     }
 }

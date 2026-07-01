@@ -312,5 +312,19 @@ namespace Negocio.Datos {
             return MapearFila(tabla.Rows[0]);
         }
 
+
+
+        public int contarEnCurso() {
+            string sql = @"SELECT COUNT(idPrestamo)
+                           FROM Prestamo
+                           WHERE idEstadoPrestamo = 4"; // Busco por estado "En Curso" (4)
+
+
+            DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
+
+            return (int)tabla.Rows[0][0];
+
+        }
+
     }
 }
