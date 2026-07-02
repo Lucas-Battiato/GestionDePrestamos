@@ -15,7 +15,7 @@ namespace Servicios {
             var from = new EmailAddress("progra7a@gmail.com", "PrestamoYa");
             var to = new EmailAddress(prestamo.Cliente.Email, prestamo.Cliente.Username);
             var subject = $"Tu préstamo fue ${estadoPrestamo}!";
-            var htmlContent = $"<p>Hola <strong>{prestamo.Cliente.Username}</strong>, tu préstamo por <strong>${prestamo.Monto:N2}</strong> fue ${estadoPrestamo}!</p>";
+            var htmlContent = $"<p>Hola <strong>{prestamo.Cliente.Username}</strong>, tu préstamo por <strong>${prestamo.Monto:N2}</strong> fue {estadoPrestamo}!</p>";
 
             if (estadoPrestamo == "aprobado") {
                 CuotaDatos cuotaDatos = new CuotaDatos();
@@ -49,6 +49,35 @@ namespace Servicios {
             var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlContent);
             client.SendEmailAsync(msg).ConfigureAwait(false).GetAwaiter().GetResult();
 
+        }
+
+
+        public static int envioMailsMasivo(List<Cuota> cuotas) {
+            Cliente cliente = new Cliente();
+            CuotaDatos cuotaDatos = new CuotaDatos();
+            PrestamoDatos prestamoDatos = new PrestamoDatos();
+
+            int contadorCorreos = 0;
+            cuotas.ForEach(cuota => {
+                var apiKey = System.Configuration.ConfigurationManager.AppSettings["SENDGRID_API_KEY"];
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("progra7a@gmail.com", "PrestamoYa");
+
+                cliente = prestamoDatos.ObtenerPorId(cuota.Prestamo.IdPrestamo).Cliente;
+                var to = new EmailAddress(cliente.Email, cliente.Username);
+                var subject = $"Tiene cuotas vencidas!";
+                var htmlContent = $"<p>Hola <strong>{cliente.Username}</strong>, tu cuota con ID N°{cuota.IdCuota} por <strong>${cuota.Monto:N2}</strong> se encuentra vencida.</p>" +
+                $"<br><p>Por favor, acercate a una sucursal para regularizar el credito a la brevedad.</p>";
+
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlContent);
+                var response = client.SendEmailAsync(msg).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Accepted) {
+                    contadorCorreos++;
+                }
+            });
+
+            return contadorCorreos;
         }
     }
 }

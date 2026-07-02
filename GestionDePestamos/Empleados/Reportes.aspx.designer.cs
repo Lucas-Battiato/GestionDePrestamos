@@ -49,6 +49,15 @@ namespace GestionDePestamos.Empleados {
         protected global::System.Web.UI.WebControls.Label lblKpiBalanceDetalle;
 
         /// <summary>
+        /// Control hfTabActiva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfTabActiva;
+
+        /// <summary>
         /// Control dgvPrestamosActivos.
         /// </summary>
         /// <remarks>
@@ -110,5 +119,14 @@ namespace GestionDePestamos.Empleados {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfDatosBarras;
+
+        /// <summary>
+        /// Control btnConfirmarNotificacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnConfirmarNotificacion;
     }
 }

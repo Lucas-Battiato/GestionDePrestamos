@@ -69,6 +69,8 @@
             <div class="card-body p-4">
                 <div class="tab-content">
 
+                    <asp:HiddenField ID="hfTabActiva" runat="server" Value="tabVencidas" />
+
                     <div class="tab-pane fade show active" id="tabActivos" role="tabpanel">
                         <div class="table-responsive">
                             <asp:GridView ID="dgvPrestamosActivos" runat="server"
@@ -78,13 +80,15 @@
                                 DataKeyNames="IdPrestamo">
                                 <HeaderStyle CssClass="table-light text-secondary" />
                                 <Columns>
-                                    <asp:BoundField DataField="IdPrestamo"      HeaderText="ID" />
+                                    <asp:BoundField DataField="IdPrestamo" HeaderText="ID" />
                                     <asp:BoundField DataField="UsernameCliente" HeaderText="Cliente" />
-                                    <asp:BoundField DataField="NombreProducto"  HeaderText="Producto" />
-                                    <asp:BoundField DataField="Monto"           HeaderText="Monto"            DataFormatString="{0:C2}" />
-                                    <asp:BoundField DataField="InteresTotal"    HeaderText="Interés Total"    DataFormatString="{0:C2}" />
+                                    <asp:BoundField DataField="NombreProducto" HeaderText="Producto" />
+                                    <asp:BoundField DataField="Monto" HeaderText="Monto" DataFormatString="{0:C2}" />
+                                    <asp:BoundField DataField="InteresTotal" HeaderText="Interés Total" DataFormatString="{0:C2}" />
+                                    <asp:BoundField DataField="CuotasTotales" HeaderText="Cuotas Totales" />
                                     <asp:BoundField DataField="CuotasRestantes" HeaderText="Cuotas Restantes" />
                                     <asp:BoundField DataField="FechaAprobacion" HeaderText="Fecha Aprobación" DataFormatString="{0:dd/MM/yyyy}" />
+                                    <asp:BoundField DataField="AprobadoPor" HeaderText="Usuario aprobador" />
                                 </Columns>
                                 <EmptyDataTemplate>
                                     <div class="alert alert-info text-center m-0">No hay préstamos activos.</div>
@@ -96,10 +100,9 @@
                     <div class="tab-pane fade" id="tabVencidas" role="tabpanel">
                         <div class="d-flex justify-content-end mb-3">
                             <asp:Button ID="btnNotificarVencidas" runat="server"
-                                Text="📧 Notificar a clientes con cuotas vencidas"
+                                Text="📧 Notificar a clientes con cuotas vencidas (mas de 7 dias)"
                                 CssClass="btn btn-warning fw-semibold"
-                                OnClick="btnNotificarVencidas_Click"
-                                Visible="false" />
+                                OnClick="btnNotificarVencidas_Click"/>
                         </div>
                         <asp:Label ID="lblResultadoNotificacion" runat="server" Visible="false"
                             CssClass="alert alert-success d-block mb-3" />
@@ -111,12 +114,12 @@
                                 DataKeyNames="IdCuota">
                                 <HeaderStyle CssClass="table-light text-secondary" />
                                 <Columns>
-                                    <asp:BoundField DataField="IdCuota"         HeaderText="ID Cuota" />
-                                    <asp:BoundField DataField="IdPrestamo"       HeaderText="ID Préstamo" />
-                                    <asp:BoundField DataField="UsernameCliente"  HeaderText="Cliente" />
-                                    <asp:BoundField DataField="Monto"            HeaderText="Monto"             DataFormatString="{0:C2}" />
+                                    <asp:BoundField DataField="IdCuota" HeaderText="ID Cuota" />
+                                    <asp:BoundField DataField="IdPrestamo" HeaderText="ID Préstamo" />
+                                    <asp:BoundField DataField="UsernameCliente" HeaderText="Cliente" />
+                                    <asp:BoundField DataField="Monto" HeaderText="Monto" DataFormatString="{0:C2}" />
                                     <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha Vencimiento" DataFormatString="{0:dd/MM/yyyy}" />
-                                    <asp:BoundField DataField="DiasVencida"      HeaderText="Días Vencida" />
+                                    <asp:BoundField DataField="DiasVencida" HeaderText="Días Vencida" />
                                 </Columns>
                                 <EmptyDataTemplate>
                                     <div class="alert alert-info text-center m-0">No hay cuotas vencidas.</div>
@@ -158,6 +161,28 @@
         </div>
 
     </div>
+
+
+    <div class="modal fade" id="modalConfirmarNotificacion" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4">
+                <div class="modal-header bg-warning rounded-top-4">
+                    <h5 class="modal-title fw-semibold">Confirmar envío de notificaciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-secondary">Se enviará un mail a cada cliente con cuotas vencidas informando el monto y la fecha de vencimiento. <strong>¿Confirmás el envío?</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnConfirmarNotificacion" runat="server" Text="Confirmar envío"
+                        CssClass="btn btn-warning fw-bold"
+                        OnClick="btnConfirmarNotificacion_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

@@ -38,5 +38,9 @@ namespace Servicios {
         public void cancelarCuotasPendientesPorPrestamo(Prestamo prestamo) {
             cuotaDatos.cancelarCuotasPendientesPorPrestamo(prestamo);
         }
+
+        public int envioMailsVencimientos(List<Cuota> cuotasVencidas) {
+            return MailServicio.envioMailsMasivo(cuotasVencidas);
+        }
     }
 }
