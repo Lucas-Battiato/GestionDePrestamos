@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace GestionDePestamos.Empleados {
     public partial class Reportes : System.Web.UI.Page {
@@ -30,9 +32,18 @@ namespace GestionDePestamos.Empleados {
             if (!IsPostBack) {
                 cargarDatos();
                 lblResultadoNotificacion.Visible = false;
+
+                hfTabActiva.Value = "tabBalance";
+                string tab = hfTabActiva.Value;
+                if (!string.IsNullOrEmpty(tab)) {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "tab",
+                        $"var t = document.querySelector('[data-bs-target=\"#{tab}\"]'); if(t) new bootstrap.Tab(t).show();", true);
+                }
+
             }
 
             if (IsPostBack) {
+                hfTabActiva.Value = "tabVencidas";
                 string tab = hfTabActiva.Value;
                 if (!string.IsNullOrEmpty(tab)) {
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "tab",
@@ -111,7 +122,76 @@ namespace GestionDePestamos.Empleados {
             // Cargo datos en Tab CuotasVencidas
             dgvCuotasVencidas.DataSource = cargarCuotasVencidas();
             dgvCuotasVencidas.DataBind();
+
+
+
+            // Cargo datos en Tab Balance
+                // Cargo widget de Prestamos
+            List<Prestamo> listaPrestamos = prestamoDatos.Listar();
+            List<Prestamo> solicitados = listaPrestamos.FindAll(p => p.EstadoPrestamo.Descripcion == "Solicitado");
+            List<Prestamo> aprobados = listaPrestamos.FindAll(p => p.EstadoPrestamo.Descripcion == "Aprobado");
+            List<Prestamo> rechazados = listaPrestamos.FindAll(p => p.EstadoPrestamo.Descripcion == "Rechazado");
+            List<Prestamo> enCurso = listaPrestamos.FindAll(p => p.EstadoPrestamo.Descripcion == "En Curso");
+            List<Prestamo> finalizados = listaPrestamos.FindAll(p => p.EstadoPrestamo.Descripcion == "Finalizado");
+            List<Prestamo> cancelados = listaPrestamos.FindAll(p => p.EstadoPrestamo.Descripcion == "Cancelado");
+
+            hfDatosPrestamos.Value = JsonConvert.SerializeObject(new {
+                labels = new[] { "Solicitado", "Aprobado", "Rechazado", "En Curso", "Finalizado", "Cancelado" },
+                data = new[] { solicitados.Count(), aprobados.Count(), rechazados.Count(), enCurso.Count(), finalizados.Count(), cancelados.Count() }
+            });
+
+
+                // Cargo widget de Cuotas
+            List<Cuota> listaCuotas = cuotaDatos.Listar();
+            List<Cuota> pendientes = listaCuotas.FindAll(c => c.EstadoCuota.Descripcion == "Pendiente");
+            List<Cuota> vencidas = listaCuotas.FindAll(c => c.EstadoCuota.Descripcion == "Vencida");
+            List<Cuota> pagadas = listaCuotas.FindAll(c => c.EstadoCuota.Descripcion == "Pagada");
+            List<Cuota> canceladas = listaCuotas.FindAll(c => c.EstadoCuota.Descripcion == "Cancelada");
+
+            hfDatosCuotas.Value = JsonConvert.SerializeObject(new {
+                labels = new[] { "Pendientes", "Vencidas", "Pagadas", "Canceladas" },
+                data = new[] { pendientes.Count(), vencidas.Count(), pagadas.Count(), canceladas.Count() }
+            });
+
+
+                // Cargo widget de Balance
+            int solicitadosPersonal = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Personal" && p.EstadoPrestamo.Descripcion == "Solicitado");
+            int aprobadosPersonal = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Personal" && p.EstadoPrestamo.Descripcion == "Aprobado");
+            int rechazadosPersonal = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Personal" && p.EstadoPrestamo.Descripcion == "Rechazado");
+            int enCursoPersonal = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Personal" && p.EstadoPrestamo.Descripcion == "En Curso");
+            int finalizadosPersonal = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Personal" && p.EstadoPrestamo.Descripcion == "Finalizado");
+            int canceladosPersonal = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Personal" && p.EstadoPrestamo.Descripcion == "Cancelado");
+
+            int solicitadosPrendario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Prendario" && p.EstadoPrestamo.Descripcion == "Solicitado");
+            int aprobadosPrendario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Prendario" && p.EstadoPrestamo.Descripcion == "Aprobado");
+            int rechazadosPrendario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Prendario" && p.EstadoPrestamo.Descripcion == "Rechazado");
+            int enCursoPrendario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Prendario" && p.EstadoPrestamo.Descripcion == "En Curso");
+            int finalizadosPrendario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Prendario" && p.EstadoPrestamo.Descripcion == "Finalizado");
+            int canceladosPrendario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Prendario" && p.EstadoPrestamo.Descripcion == "Cancelado");
+
+            int solicitadosHipotecario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Hipotecario" && p.EstadoPrestamo.Descripcion == "Solicitado");
+            int aprobadosHipotecario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Hipotecario" && p.EstadoPrestamo.Descripcion == "Aprobado");
+            int rechazadosHipotecario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Hipotecario" && p.EstadoPrestamo.Descripcion == "Rechazado");
+            int enCursoHipotecario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Hipotecario" && p.EstadoPrestamo.Descripcion == "En Curso");
+            int finalizadosHipotecario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Hipotecario" && p.EstadoPrestamo.Descripcion == "Finalizado");
+            int canceladosHipotecario = listaPrestamos.Count(p => p.ProductoPrestamo.Nombre == "Prestamo Hipotecario" && p.EstadoPrestamo.Descripcion == "Cancelado");
+
+
+            hfDatosBarras.Value = JsonConvert.SerializeObject(new {
+                labels = new[] { "Personal", "Prendario", "Hipotecario" },
+                datasets = new[] {
+                        new { label = "Solicitado",  backgroundColor = "#0dcaf0", data = new[] { solicitadosPersonal,  solicitadosPrendario,  solicitadosHipotecario  } },
+                        new { label = "Aprobado",    backgroundColor = "#0d6efd", data = new[] { aprobadosPersonal,    aprobadosPrendario,    aprobadosHipotecario    } },
+                        new { label = "Rechazado",   backgroundColor = "#dc3545", data = new[] { rechazadosPersonal,   rechazadosPrendario,   rechazadosHipotecario   } },
+                        new { label = "En Curso",    backgroundColor = "#6f42c1", data = new[] { enCursoPersonal,      enCursoPrendario,      enCursoHipotecario      } },
+                        new { label = "Finalizado",  backgroundColor = "#198754", data = new[] { finalizadosPersonal,  finalizadosPrendario,  finalizadosHipotecario  } },
+                        new { label = "Cancelado",   backgroundColor = "#6c757d", data = new[] { canceladosPersonal,   canceladosPrendario,   canceladosHipotecario   } }
+    }
+            });
+
         }
+
+
 
 
         private List<CuotaVencidaDTO> cargarCuotasVencidas() {

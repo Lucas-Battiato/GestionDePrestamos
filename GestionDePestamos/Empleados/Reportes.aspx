@@ -192,32 +192,122 @@
             var datosBarras = JSON.parse(document.getElementById('<%= hfDatosBarras.ClientID %>').value || '{}');
 
             if (Object.keys(datosPrestamos).length > 0) {
-                new Chart(document.getElementById('chartPrestamos'), {
+                var totalPrestamos = datosPrestamos.data.reduce((a, b) => a + b, 0);
+
+                var chartP = new Chart(document.getElementById('chartPrestamos'), {
                     type: 'doughnut',
                     data: {
                         labels: datosPrestamos.labels,
                         datasets: [{
                             data: datosPrestamos.data,
-                            backgroundColor: ['#0d6efd', '#198754', '#dc3545', '#0dcaf0', '#ffc107', '#6c757d']
+                            backgroundColor: ['#0dcaf0', '#0d6efd', '#dc3545', '#198754', '#6f42c1', '#6c757d']
                         }]
                     },
-                    options: { plugins: { legend: { position: 'bottom' } } }
+                    options: {
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 8
+                                }
+                            },
+
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.label + ': ' + context.raw + ' préstamos';
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '65%',
+                        layout: {
+                            padding: {
+                                bottom: 10
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'centroTotal',
+                        afterDraw(chart) {
+                            var ctx = chart.ctx;
+                            var cx = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+                            var cy = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
+                            ctx.save();
+                            ctx.font = 'bold 28px sans-serif';
+                            ctx.fillStyle = '#212529';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(totalPrestamos, cx, cy + 16);
+                            ctx.font = '24px sans-serif';
+                            ctx.fillStyle = '#6c757d';
+                            ctx.fillText('Total:', cx, cy - 20);
+                            ctx.restore();
+                        }
+                    }]
                 });
             }
 
+
             if (Object.keys(datosCuotas).length > 0) {
-                new Chart(document.getElementById('chartCuotas'), {
+                var totalCuotas = datosCuotas.data.reduce((a, b) => a + b, 0);
+
+                var chartP = new Chart(document.getElementById('chartCuotas'), {
                     type: 'doughnut',
                     data: {
                         labels: datosCuotas.labels,
                         datasets: [{
                             data: datosCuotas.data,
-                            backgroundColor: ['#6c757d', '#198754', '#dc3545', '#212529']
+                            backgroundColor: ['#0dcaf0', '#0d6efd', '#dc3545', '#198754', '#6f42c1', '#6c757d']
                         }]
                     },
-                    options: { plugins: { legend: { position: 'bottom' } } }
+                    options: {
+                        plugins: {
+                            legend: {
+                                position:
+                                    'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 8
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.label + ': ' + context.raw + ' cuotas';
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '65%',
+                        layout: {
+                            padding: {
+                                bottom: 10
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'centroTotal',
+                        afterDraw(chart) {
+                            var ctx = chart.ctx;
+                            var cx = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+                            var cy = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
+                            ctx.save();
+                            ctx.font = 'bold 28px sans-serif';
+                            ctx.fillStyle = '#212529';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(totalCuotas, cx, cy + 16);
+                            ctx.font = '24px sans-serif';
+                            ctx.fillStyle = '#6c757d';
+                            ctx.fillText('Total:', cx, cy - 20);
+                            ctx.restore();
+                        }
+                    }]
                 });
             }
+
 
             if (Object.keys(datosBarras).length > 0) {
                 new Chart(document.getElementById('chartBarras'), {
