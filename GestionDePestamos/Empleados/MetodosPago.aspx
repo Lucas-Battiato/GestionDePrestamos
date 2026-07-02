@@ -44,7 +44,7 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <%--<asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-sm btn-outline-primary me-1" OnClick="btnEditar_Click">Editar</asp:LinkButton>--%>
-                                        <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminar_Click">Eliminar</asp:LinkButton>
+                                        <%--<asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminar_Click">Eliminar</asp:LinkButton>--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
