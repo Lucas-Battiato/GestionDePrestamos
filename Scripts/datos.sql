@@ -86,22 +86,22 @@ GO
 -- =================================== --
 
 -- Prestamo Personal --
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 3,  6,  0.0450);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 3,  6,  0.0458);
 INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 7,  12, 0.0500);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 13, 24, 0.0575);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 25, 36, 0.0650);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 13, 24, 0.0558);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (1, 25, 36, 0.0625);
 
 -- Prestamo Prendario --
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 12, 24, 0.0350);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 25, 36, 0.0400);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 37, 48, 0.0475);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 49, 60, 0.0525);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 12, 24, 0.0292);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 25, 36, 0.0333);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 37, 48, 0.0375);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (2, 49, 60, 0.0417);
 
 -- Prestamo Hipotecario --
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 24,  60,  0.0250);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 61,  120, 0.0300);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 121, 180, 0.0350);
-INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 181, 240, 0.0400);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 24,  60,  0.0050);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 61,  120, 0.0058);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 121, 180, 0.0067);
+INSERT INTO [TasaInteres] ([idProducto], [cuotasDesde], [cuotasHasta], [tasaMensual]) VALUES (3, 181, 240, 0.0075);
 GO
 
 

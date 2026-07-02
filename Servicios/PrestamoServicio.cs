@@ -171,7 +171,13 @@ namespace Servicios {
             foreach (TasaInteres tasa in listaIntereses) {
                 if (tasa.ProductoPrestamo.IdProducto == prestamo.ProductoPrestamo.IdProducto) {
                     if (prestamo.CantidadCuotas >= tasa.CuotasDesde && prestamo.CantidadCuotas <= tasa.CuotasHasta) {
-                        prestamo.InteresTotal = prestamo.Monto * (tasa.TasaMensual);
+                        //prestamo.InteresTotal = (prestamo.Monto * tasa.TasaMensual) * prestamo.CantidadCuotas;
+                        double t = (double)tasa.TasaMensual;
+                        int n = prestamo.CantidadCuotas;
+                        double monto = (double)prestamo.Monto;
+
+                        double cuota = monto * (t * Math.Pow(1 + t, n)) / (Math.Pow(1 + t, n) - 1);
+                        prestamo.InteresTotal = (decimal)(cuota * n) - prestamo.Monto;
                     }
                 }
             }
