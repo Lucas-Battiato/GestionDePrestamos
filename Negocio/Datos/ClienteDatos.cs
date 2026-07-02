@@ -16,7 +16,7 @@ namespace Negocio.Datos
 
             string sql = @"SELECT idCliente, username, password, email, telefono, direccion
                            FROM Cliente
-                           ORDER BY username";
+                           ORDER BY idCliente ASC";
 
             DataTable tabla = AccesoDatos.EjecutarConsulta(sql);
 

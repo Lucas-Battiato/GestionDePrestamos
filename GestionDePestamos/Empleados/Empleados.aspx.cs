@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Negocio.Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace GestionDePestamos.Empleados {
                 lblNombreUsuario.Text = ((Usuario)Session["usuario"]).Username;
 
                 ConfigurarPermisos();
+
+                cargarKPIs();
             }
         }
 
@@ -34,6 +37,29 @@ namespace GestionDePestamos.Empleados {
                     pnlAdministrador.Visible = false;
                     break;
             }
+        }
+
+
+        private void cargarKPIs() {
+
+            // KpiSolicitudes pendientes de evaluación
+            PrestamoDatos prestamoDatos = new PrestamoDatos();
+            List<Prestamo> listaPrestamos = prestamoDatos.Listar();
+
+            lblKpiSolicitudes.Text = listaPrestamos.Count(p => p.EstadoPrestamo.Descripcion == "Solicitado").ToString();
+
+
+            // KpiClientes registrados en el sistema
+            ClienteDatos clienteDatos = new ClienteDatos();
+            List<Entidades.Cliente> listaClientes = clienteDatos.Listar();
+
+            lblKpiClientes.Text = listaClientes.Count().ToString();
+
+
+            // KpiAprobados esta semana
+            DateTime inicioSemana = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday); // Domingo=0, lunes = 1, etc
+            lblKpiAprobados.Text = listaPrestamos.Count(p => p.FechaAprobacion != null && p.FechaAprobacion >= inicioSemana).ToString();
+
         }
     }
 }
